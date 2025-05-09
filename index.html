@@ -1,19 +1,603 @@
-<!doctype html>
-<html>
-	<head>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width" />
-		<title>My static Space</title>
-		<link rel="stylesheet" href="style.css" />
-	</head>
-	<body>
-		<div class="card">
-			<h1>Welcome to your static Space!</h1>
-			<p>You can modify this app directly by editing <i>index.html</i> in the Files and versions tab.</p>
-			<p>
-				Also don't forget to check the
-				<a href="https://huggingface.co/docs/hub/spaces" target="_blank">Spaces documentation</a>.
-			</p>
-		</div>
-	</body>
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>José Carlos Martín Lache | IT-Support Spezialist & Technischer Berater</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        
+        .name-gradient {
+            background: linear-gradient(90deg, #3b82f6, #10b981);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .flip-card {
+            perspective: 1000px;
+        }
+        
+        .flip-card-inner {
+            transition: transform 0.6s;
+            transform-style: preserve-3d;
+            position: relative;
+        }
+        
+        .flip-card:hover .flip-card-inner {
+            transform: rotateY(180deg);
+        }
+        
+        .flip-card-front, .flip-card-back {
+            backface-visibility: hidden;
+            position: absolute;
+            width: 100%;
+            height: 100%;
+        }
+        
+        .flip-card-back {
+            transform: rotateY(180deg);
+        }
+        
+        .progress-bar {
+            height: 8px;
+            border-radius: 4px;
+            background-color: #e5e7eb;
+            overflow: hidden;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            border-radius: 4px;
+            background: linear-gradient(90deg, #3b82f6, #10b981);
+            transition: width 1s ease-in-out;
+        }
+        
+        .download-btn {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .download-btn::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 5px;
+            height: 5px;
+            background: rgba(255, 255, 255, 0.5);
+            opacity: 0;
+            border-radius: 100%;
+            transform: scale(1, 1) translate(-50%, -50%);
+            transform-origin: 50% 50%;
+        }
+        
+        .download-btn:hover::after {
+            animation: ripple 1s ease-out;
+        }
+        
+        @keyframes ripple {
+            0% {
+                transform: scale(0, 0);
+                opacity: 0.5;
+            }
+            100% {
+                transform: scale(20, 20);
+                opacity: 0;
+            }
+        }
+        
+        .dark-mode {
+            background-color: #1f2937;
+            color: #f3f4f6;
+        }
+        
+        .dark-mode .bg-gray-100 {
+            background-color: #374151;
+        }
+        
+        .dark-mode .text-gray-800 {
+            color: #f3f4f6;
+        }
+        
+        .dark-mode .text-gray-600 {
+            color: #d1d5db;
+        }
+        
+        .dark-mode .bg-white {
+            background-color: #1f2937;
+            border-color: #374151;
+        }
+        
+        .dark-mode .progress-bar {
+            background-color: #374151;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+    <!-- Header -->
+    <header class="sticky top-0 z-50 bg-white shadow-sm dark:bg-gray-800">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <div>
+                <h1 class="text-2xl font-bold name-gradient">José Carlos Martín Lache</h1>
+                <p class="text-sm text-gray-600 dark:text-gray-300">IT-Support Spezialist & Technischer Berater</p>
+            </div>
+            
+            <div class="flex items-center space-x-4">
+                <button id="darkModeToggle" class="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700">
+                    <i class="fas fa-moon dark:hidden"></i>
+                    <i class="fas fa-sun hidden dark:block text-yellow-300"></i>
+                </button>
+                
+                <nav class="hidden md:flex space-x-6">
+                    <a href="#home" class="hover:text-blue-500 transition">Home</a>
+                    <a href="#about" class="hover:text-blue-500 transition">Über mich</a>
+                    <a href="#experience" class="hover:text-blue-500 transition">Berufserfahrung</a>
+                    <a href="#skills" class="hover:text-blue-500 transition">Fähigkeiten</a>
+                    <a href="#certificates" class="hover:text-blue-500 transition">Zertifikate</a>
+                    <a href="#contact" class="hover:text-blue-500 transition">Kontakt</a>
+                </nav>
+                
+                <button id="mobileMenuButton" class="md:hidden p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+        
+        <!-- Mobile Menu -->
+        <div id="mobileMenu" class="hidden md:hidden bg-white dark:bg-gray-800 shadow-lg">
+            <div class="container mx-auto px-4 py-2 flex flex-col space-y-2">
+                <a href="#home" class="py-2 hover:text-blue-500 transition">Home</a>
+                <a href="#about" class="py-2 hover:text-blue-500 transition">Über mich</a>
+                <a href="#experience" class="py-2 hover:text-blue-500 transition">Berufserfahrung</a>
+                <a href="#skills" class="py-2 hover:text-blue-500 transition">Fähigkeiten</a>
+                <a href="#certificates" class="py-2 hover:text-blue-500 transition">Zertifikate</a>
+                <a href="#contact" class="py-2 hover:text-blue-500 transition">Kontakt</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="py-20 bg-gradient-to-r from-blue-50 to-green-50 dark:from-gray-800 dark:to-gray-700">
+        <div class="container mx-auto px-4 flex flex-col md:flex-row items-center">
+            <div class="md:w-1/2 mb-10 md:mb-0">
+                <h2 class="text-4xl font-bold mb-4">Hallo, ich bin <span class="name-gradient">José Carlos</span></h2>
+                <p class="text-xl text-gray-600 dark:text-gray-300 mb-6">IT-Support Spezialist & Technischer Berater mit umfassender Erfahrung in der IT-Infrastruktur und Systemadministration.</p>
+                
+                <div class="flex space-x-4">
+                    <a href="https://linkedin.com/in/carlosmartin-it" target="_blank" class="px-6 py-3 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition flex items-center">
+                        <i class="fab fa-linkedin-in mr-2"></i> LinkedIn
+                    </a>
+                    <a href="https://wa.me/491792351921" target="_blank" class="px-6 py-3 bg-green-500 text-white rounded-lg hover:bg-green-600 transition flex items-center">
+                        <i class="fab fa-whatsapp mr-2"></i> WhatsApp
+                    </a>
+                </div>
+                
+                <a href="https://drive.google.com/file/d/1gw4jebAqZOO2lzkNd2EC8Fx2V0gJk9xV/view?usp=sharing" target="_blank" class="mt-8 inline-block px-8 py-3 bg-gradient-to-r from-blue-500 to-green-500 text-white rounded-lg hover:from-blue-600 hover:to-green-600 transition download-btn font-semibold">
+                    👉 Lebenslauf herunterladen
+                </a>
+            </div>
+            
+            <div class="md:w-1/2 flex justify-center">
+                <div class="w-64 h-64 rounded-full bg-gradient-to-r from-blue-100 to-green-100 dark:from-gray-700 dark:to-gray-600 flex items-center justify-center shadow-lg">
+                    <i class="fas fa-user-tie text-6xl text-gray-400 dark:text-gray-300"></i>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-16 bg-white dark:bg-gray-800">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold mb-8 text-center">Über mich</h2>
+            
+            <div class="max-w-3xl mx-auto">
+                <p class="text-lg text-gray-600 dark:text-gray-300 mb-6">
+                    Ich bin ein erfahrener IT-Support Spezialist mit fundierten Kenntnissen in Systemadministration, Netzwerkinfrastruktur und technischer Beratung. Meine Leidenschaft gilt der Lösung komplexer IT-Herausforderungen und der kontinuierlichen Weiterentwicklung meiner technischen Fähigkeiten.
+                </p>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
+                    <div class="bg-gray-100 dark:bg-gray-700 p-6 rounded-lg">
+                        <h3 class="font-semibold text-lg mb-2">Ausbildung</h3>
+                        <p class="text-gray-600 dark:text-gray-300">
+                            <span class="font-medium">UCI</span> - Informatikstudium (nicht abgeschlossen)
+                        </p>
+                    </div>
+                    
+                    <div class="bg-gray-100 dark:bg-gray-700 p-6 rounded-lg">
+                        <h3 class="font-semibold text-lg mb-2">Frühe Tätigkeiten</h3>
+                        <p class="text-gray-600 dark:text-gray-300">
+                            Freiberuflicher IT-Techniker mit Schwerpunkt auf Systemwartung und -reparatur
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section id="experience" class="py-16 bg-gray-100 dark:bg-gray-700">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold mb-8 text-center">Berufserfahrung</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Computacenter Card -->
+                <div class="flip-card h-64">
+                    <div class="flip-card-inner h-full">
+                        <div class="flip-card-front bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md h-full flex flex-col">
+                            <div class="flex items-center mb-4">
+                                <div class="w-12 h-12 rounded-full bg-blue-100 dark:bg-gray-600 flex items-center justify-center mr-4">
+                                    <i class="fas fa-building text-blue-500 dark:text-blue-300"></i>
+                                </div>
+                                <div>
+                                    <h3 class="font-bold">Computacenter AG</h3>
+                                    <p class="text-sm text-gray-600 dark:text-gray-300">für Mercedes-Benz</p>
+                                </div>
+                            </div>
+                            <div class="flex-grow">
+                                <p class="text-gray-600 dark:text-gray-300 mb-4">IT-Support Spezialist für die Mercedes-Benz AG</p>
+                                <div class="text-sm text-gray-500 dark:text-gray-400">
+                                    <i class="fas fa-calendar-alt mr-2"></i> Aktuelle Position
+                                </div>
+                            </div>
+                            <div class="text-right">
+                                <span class="text-xs px-2 py-1 bg-blue-100 dark:bg-gray-600 text-blue-800 dark:text-blue-200 rounded-full">Mehr erfahren →</span>
+                            </div>
+                        </div>
+                        <div class="flip-card-back bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md h-full">
+                            <h3 class="font-bold mb-4">Aufgaben bei Computacenter</h3>
+                            <ul class="text-sm text-gray-600 dark:text-gray-300 space-y-2">
+                                <li class="flex items-start">
+                                    <i class="fas fa-check-circle text-green-500 mr-2 mt-1"></i>
+                                    <span>Technische Beratung und Support für Mercedes-Benz Mitarbeiter</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-check-circle text-green-500 mr-2 mt-1"></i>
+                                    <span>Fehleranalyse und Troubleshooting komplexer IT-Probleme</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-check-circle text-green-500 mr-2 mt-1"></i>
+                                    <span>Remote-Support und Lifecycle Management</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-check-circle text-green-500 mr-2 mt-1"></i>
+                                    <span>Verwaltung von Netzwerkinfrastruktur und Firewalls</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Deutsche Technikberatung Card -->
+                <div class="flip-card h-64">
+                    <div class="flip-card-inner h-full">
+                        <div class="flip-card-front bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md h-full flex flex-col">
+                            <div class="flex items-center mb-4">
+                                <div class="w-12 h-12 rounded-full bg-green-100 dark:bg-gray-600 flex items-center justify-center mr-4">
+                                    <i class="fas fa-cogs text-green-500 dark:text-green-300"></i>
+                                </div>
+                                <div>
+                                    <h3 class="font-bold">Deutsche Technikberatung GmbH</h3>
+                                    <p class="text-sm text-gray-600 dark:text-gray-300">IT-Support</p>
+                                </div>
+                            </div>
+                            <div class="flex-grow">
+                                <p class="text-gray-600 dark:text-gray-300 mb-4">IT-Support für verschiedene Kundenprojekte</p>
+                                <div class="text-sm text-gray-500 dark:text-gray-400">
+                                    <i class="fas fa-calendar-alt mr-2"></i> Vorherige Position
+                                </div>
+                            </div>
+                            <div class="text-right">
+                                <span class="text-xs px-2 py-1 bg-green-100 dark:bg-gray-600 text-green-800 dark:text-green-200 rounded-full">Mehr erfahren →</span>
+                            </div>
+                        </div>
+                        <div class="flip-card-back bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md h-full">
+                            <h3 class="font-bold mb-4">Aufgaben bei Deutsche Technikberatung</h3>
+                            <ul class="text-sm text-gray-600 dark:text-gray-300 space-y-2">
+                                <li class="flex items-start">
+                                    <i class="fas fa-check-circle text-green-500 mr-2 mt-1"></i>
+                                    <span>Technischer Support für diverse Kundenprojekte</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-check-circle text-green-500 mr-2 mt-1"></i>
+                                    <span>Implementierung von IT-Lösungen</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-check-circle text-green-500 mr-2 mt-1"></i>
+                                    <span>Systemadministration und Wartung</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-check-circle text-green-500 mr-2 mt-1"></i>
+                                    <span>Dokumentation von IT-Prozessen</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Prox-Systems Card -->
+                <div class="flip-card h-64">
+                    <div class="flip-card-inner h-full">
+                        <div class="flip-card-front bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md h-full flex flex-col">
+                            <div class="flex items-center mb-4">
+                                <div class="w-12 h-12 rounded-full bg-purple-100 dark:bg-gray-600 flex items-center justify-center mr-4">
+                                    <i class="fas fa-server text-purple-500 dark:text-purple-300"></i>
+                                </div>
+                                <div>
+                                    <h3 class="font-bold">Prox-Systems Germany GmbH</h3>
+                                    <p class="text-sm text-gray-600 dark:text-gray-300">IT-Techniker</p>
+                                </div>
+                            </div>
+                            <div class="flex-grow">
+                                <p class="text-gray-600 dark:text-gray-300 mb-4">IT-Techniker für Systeminstallation und -wartung</p>
+                                <div class="text-sm text-gray-500 dark:text-gray-400">
+                                    <i class="fas fa-calendar-alt mr-2"></i> Frühere Position
+                                </div>
+                            </div>
+                            <div class="text-right">
+                                <span class="text-xs px-2 py-1 bg-purple-100 dark:bg-gray-600 text-purple-800 dark:text-purple-200 rounded-full">Mehr erfahren →</span>
+                            </div>
+                        </div>
+                        <div class="flip-card-back bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md h-full">
+                            <h3 class="font-bold mb-4">Aufgaben bei Prox-Systems</h3>
+                            <ul class="text-sm text-gray-600 dark:text-gray-300 space-y-2">
+                                <li class="flex items-start">
+                                    <i class="fas fa-check-circle text-green-500 mr-2 mt-1"></i>
+                                    <span>Installation und Wartung von IT-Systemen</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-check-circle text-green-500 mr-2 mt-1"></i>
+                                    <span>Hardware-Reparaturen und -Upgrades</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-check-circle text-green-500 mr-2 mt-1"></i>
+                                    <span>Vor-Ort-Support für Kunden</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-check-circle text-green-500 mr-2 mt-1"></i>
+                                    <span>Einrichtung von Netzwerkkomponenten</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="py-16 bg-white dark:bg-gray-800">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold mb-8 text-center">Fähigkeiten</h2>
+            
+            <div class="max-w-3xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div>
+                    <div class="mb-6">
+                        <div class="flex justify-between mb-2">
+                            <span class="font-medium">Fehleranalyse & Troubleshooting</span>
+                            <span>90%</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 90%"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-6">
+                        <div class="flex justify-between mb-2">
+                            <span class="font-medium">Remote-Support & Lifecycle Management</span>
+                            <span>85%</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 85%"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-6">
+                        <div class="flex justify-between mb-2">
+                            <span class="font-medium">Netzwerkinfrastruktur & Firewalls</span>
+                            <span>80%</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 80%"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div>
+                    <div class="mb-6">
+                        <div class="flex justify-between mb-2">
+                            <span class="font-medium">ServiceNow & Ticketing-Prozesse</span>
+                            <span>75%</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 75%"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-6">
+                        <div class="flex justify-between mb-2">
+                            <span class="font-medium">Virtualisierung (VMware, Hyper-V)</span>
+                            <span>70%</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 70%"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-6">
+                        <div class="flex justify-between mb-2">
+                            <span class="font-medium">Linux & Sicherheitskonzepte</span>
+                            <span>60%</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 60%"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-6">
+                        <div class="flex justify-between mb-2">
+                            <span class="font-medium">Automatisierung & KI-Tools</span>
+                            <span>60%</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 60%"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Certificates Section -->
+    <section id="certificates" class="py-16 bg-gray-100 dark:bg-gray-700">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold mb-8 text-center">Zertifikate</h2>
+            
+            <div class="max-w-2xl mx-auto">
+                <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 mb-6">
+                    <div class="flex items-start">
+                        <div class="bg-blue-100 dark:bg-gray-600 p-3 rounded-lg mr-4">
+                            <i class="fas fa-certificate text-blue-500 dark:text-blue-300 text-2xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-lg">Google Career Certificate – Cybersecurity</h3>
+                            <p class="text-gray-600 dark:text-gray-300">Abgeschlossen 2024</p>
+                            <p class="text-gray-600 dark:text-gray-300 mt-2">
+                                Umfassende Kenntnisse in Cybersicherheitskonzepten, Bedrohungsanalyse und Schutzmaßnahmen.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-16 bg-white dark:bg-gray-800">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold mb-8 text-center">Kontakt</h2>
+            
+            <div class="max-w-md mx-auto text-center">
+                <p class="text-gray-600 dark:text-gray-300 mb-8">
+                    Bei Interesse an einer Zusammenarbeit oder für weitere Informationen stehe ich gerne zur Verfügung.
+                </p>
+                
+                <div class="flex flex-col space-y-4">
+                    <a href="https://linkedin.com/in/carlosmartin-it" target="_blank" class="px-6 py-3 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition flex items-center justify-center">
+                        <i class="fab fa-linkedin-in mr-2"></i> LinkedIn Profil besuchen
+                    </a>
+                    
+                    <a href="https://wa.me/491792351921" target="_blank" class="px-6 py-3 bg-green-500 text-white rounded-lg hover:bg-green-600 transition flex items-center justify-center">
+                        <i class="fab fa-whatsapp mr-2"></i> Über WhatsApp kontaktieren
+                    </a>
+                </div>
+                
+                <div class="mt-8">
+                    <a href="https://drive.google.com/file/d/1gw4jebAqZOO2lzkNd2EC8Fx2V0gJk9xV/view?usp=sharing" target="_blank" class="inline-block px-8 py-3 bg-gradient-to-r from-blue-500 to-green-500 text-white rounded-lg hover:from-blue-600 hover:to-green-600 transition download-btn font-semibold">
+                        👉 Lebenslauf herunterladen
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-100 dark:bg-gray-700 py-8">
+        <div class="container mx-auto px-4 text-center">
+            <p class="text-gray-600 dark:text-gray-300">
+                © 2024 José Carlos Martín Lache. Alle Rechte vorbehalten.
+            </p>
+            <p class="text-sm text-gray-500 dark:text-gray-400 mt-2">
+                Erstellt mit TailwindCSS
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        // Dark mode toggle
+        const darkModeToggle = document.getElementById('darkModeToggle');
+        const html = document.documentElement;
+        
+        // Check for saved user preference
+        if (localStorage.getItem('darkMode') === 'enabled') {
+            html.classList.add('dark-mode');
+            document.body.classList.add('dark-mode');
+        }
+        
+        darkModeToggle.addEventListener('click', () => {
+            document.body.classList.toggle('dark-mode');
+            
+            if (document.body.classList.contains('dark-mode')) {
+                localStorage.setItem('darkMode', 'enabled');
+            } else {
+                localStorage.setItem('darkMode', 'disabled');
+            }
+        });
+        
+        // Mobile menu toggle
+        const mobileMenuButton = document.getElementById('mobileMenuButton');
+        const mobileMenu = document.getElementById('mobileMenu');
+        
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+        
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                    
+                    // Close mobile menu if open
+                    mobileMenu.classList.add('hidden');
+                }
+            });
+        });
+        
+        // Animate progress bars on scroll
+        const animateProgressBars = () => {
+            const progressFills = document.querySelectorAll('.progress-fill');
+            const skillsSection = document.getElementById('skills');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        progressFills.forEach(fill => {
+                            const width = fill.style.width;
+                            fill.style.width = '0';
+                            setTimeout(() => {
+                                fill.style.width = width;
+                            }, 100);
+                        });
+                        observer.unobserve(skillsSection);
+                    }
+                });
+            }, { threshold: 0.5 });
+            
+            if (skillsSection) {
+                observer.observe(skillsSection);
+            }
+        };
+        
+        // Initialize animations when page loads
+        window.addEventListener('load', () => {
+            animateProgressBars();
+        });
+    </script>
+<p style="border-radius: 8px; text-align: center; font-size: 12px; color: #fff; margin-top: 16px;position: fixed; left: 8px; bottom: 8px; z-index: 10; background: rgba(0, 0, 0, 0.8); padding: 4px 8px;">Made with <img src="https://enzostvs-deepsite.hf.space/logo.svg" alt="DeepSite Logo" style="width: 16px; height: 16px; vertical-align: middle;display:inline-block;margin-right:3px;filter:brightness(0) invert(1);"><a href="https://enzostvs-deepsite.hf.space" style="color: #fff;text-decoration: underline;" target="_blank" >DeepSite</a> - 🧬 <a href="https://enzostvs-deepsite.hf.space?remix=slidetatore/portfolio" style="color: #fff;text-decoration: underline;" target="_blank" >Remix</a></p></body>
 </html>
