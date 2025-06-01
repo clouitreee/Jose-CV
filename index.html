@@ -1,375 +1,844 @@
 <!DOCTYPE html>
-<html lang="de" class="dark">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>José Carlos Martín Lache - Portfolio</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    
-    <script src="https://unpkg.com/react@18.2.0/umd/react.production.min.js"></script>
-    <script src="https://unpkg.com/react-dom@18.2.0/umd/react-dom.production.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/lucide-react@0.378.0/dist/umd/lucide-react.js"></script>
-    <script src="https://unpkg.com/@babel/standalone@7.23.0/babel.min.js"></script>
-
-    <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@tsparticles/engine@3.3.0/tsparticles.engine.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@tsparticles/preset-stars@3.3.0/tsparticles.preset.stars.min.js"></script>
-    <script src="https://unpkg.com/framer-motion@11.2.10/dist/framer-motion.umd.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/vanilla-tilt@1.8.2/dist/vanilla-tilt.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/headroom.js@0.12.0/dist/headroom.min.js"></script>
-
+    <title>Protocolo Integral: Reducir Grasa Sin Perder Músculo</title>
     <style>
-        body { 
-            font-family: 'Inter', sans-serif;
-            background-color: #0f172a; /* slate-900 */
-            color: #e2e8f0; /* slate-200 */
-            overscroll-behavior-y: none; 
+        /* Estilos Generales */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #1e1e1e; /* Muy oscuro */
+            color: #e0e0e0; /* Texto claro */
+            line-height: 1.6;
         }
-        ::-webkit-scrollbar { width: 8px; height: 8px; }
-        ::-webkit-scrollbar-track { background: #0f172a; }
-        ::-webkit-scrollbar-thumb { background: #334155; border-radius: 4px; }
-        ::-webkit-scrollbar-thumb:hover { background: #475569; }
 
-        .timeline-marker {
-            position: absolute; left: -1rem; top: 1.25rem; width: 0.75rem; height: 0.75rem;
-            border-radius: 9999px; background-color: #475569; /* slate-600 */
-            border-width: 2px; border-color: #0f172a; /* slate-900 */
-            transition: all 300ms cubic-bezier(0.4, 0, 0.2, 1); transform: scale(1);
+        /* Encabezado */
+        header {
+            background-color: #004d40; /* Verde oscuro azulado para el header */
+            color: #ffffff;
+            padding: 20px 40px;
+            text-align: center;
+            border-bottom: 4px solid #00796b; /* Un verde más brillante para acento */
+            position: sticky; /* Para que el header se quede fijo al hacer scroll */
+            top: 0;
+            z-index: 1000; /* Asegura que el header esté sobre otros elementos */
         }
-        @media (min-width: 640px) { .timeline-marker { left: -1rem; } }
-        .timeline-item.group:hover .timeline-marker {
-            background-color: #14b8a6; /* teal-500 */ transform: scale(1.25);
+
+        header h1 {
+            margin: 0;
+            font-size: 2.2em;
         }
-        .headroom { will-change: transform; transition: transform 200ms linear; }
-        .headroom--pinned { transform: translateY(0%); }
-        .headroom--unpinned { transform: translateY(-100%); }
+
+        header .subtitle {
+            margin: 5px 0 0;
+            font-size: 1.1em;
+            font-style: italic;
+            color: #b2dfdb; /* Verde claro para el subtítulo */
+        }
+
+        header nav {
+            margin-top: 15px;
+        }
+
+        header nav a {
+            color: #b2dfdb; /* Verde claro para enlaces de navegación */
+            margin: 0 15px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1em;
+            padding: 5px 10px;
+            border-radius: 4px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        header nav a:hover {
+            color: #ffffff;
+            background-color: #00796b;
+            text-decoration: none;
+        }
         
-        .typed-cursor { opacity: 1; animation: typedjsBlink 0.7s infinite; color: #14b8a6; font-weight: normal; }
-        @keyframes typedjsBlink { 0%, 100% { opacity: 1; } 50% { opacity: 0.0; } }
-        
-        .futuristic-gradient-text {
-            background-image: linear-gradient(to right, #38bdf8, #14b8a6, #8b5cf6);
-            -webkit-background-clip: text; background-clip: text; color: transparent;
+        /* Contenedor Principal de Secciones */
+        main {
+            padding-top: 20px; /* Espacio para que el contenido no quede debajo del header fijo */
         }
-        .tilt-card { will-change: transform; }
+
+        .main-section {
+            background-color: #2c2c2c;
+            padding: 25px;
+            margin: 25px auto;
+            max-width: 1000px; /* Ancho máximo para las secciones principales */
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+        }
+
+        .main-section h2 {
+            color: #009688; /* Verde brillante para títulos de sección */
+            border-bottom: 2px solid #00796b;
+            padding-bottom: 10px;
+            margin-top: 0;
+            font-size: 2em; /* Ligeramente más grande */
+            text-align: center; /* Centrar títulos de sección */
+            margin-bottom: 25px;
+        }
+
+        /* Estilos para Botones Desplegables de Día */
+        .day-toggle {
+            margin-bottom: 10px; /* Espacio entre botones de día */
+        }
+
+        .day-button {
+            background-color: #00695c; /* Verde oscuro para botones */
+            color: #ffffff;
+            border: none;
+            padding: 15px 20px; /* Más padding */
+            width: 100%;
+            text-align: left;
+            font-size: 1.25em; /* Ligeramente más grande */
+            font-weight: bold;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+
+        .day-button:hover {
+            background-color: #00796b; /* Verde más claro al pasar el mouse */
+        }
+
+        .day-button.active {
+            background-color: #00897b; /* Color para botón activo/abierto */
+            border-bottom-left-radius: 0;
+            border-bottom-right-radius: 0;
+        }
+
+        .toggle-icon {
+            font-size: 1.3em; /* Icono más grande */
+            font-weight: bold;
+        }
+
+        /* Contenido Desplegable del Día */
+        .day-content {
+            background-color: #353535; /* Fondo para contenido desplegado */
+            padding: 20px;
+            border: 1px solid #00695c; /* Borde que coincide con el botón */
+            border-top: none; /* Sin doble borde con el botón */
+            border-radius: 0 0 6px 6px;
+            /* display: none; por defecto, controlado por JS */
+            animation: fadeIn 0.5s ease-in-out; /* Animación de entrada */
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+
+        /* Estilos para Subsecciones dentro del contenido del día */
+        .day-content .subsection { /* Para mantener la estructura visual interna */
+            background-color: #3d3d3d; /* Ligeramente diferente para anidar */
+            border-left: 4px solid #00897b; /* Color de borde diferente para anidados */
+            margin-top: 15px;
+            margin-bottom: 15px;
+        }
+        .day-content .subsection:first-child {
+            margin-top: 0;
+        }
+
+        .day-content .subsection h3 {
+            color: #4db6ac;
+            font-size: 1.4em; /* Ajustar según sea necesario */
+        }
+        .day-content .subsection h4 {
+            color: #80cbc4;
+            font-size: 1.2em; /* Ajustar según sea necesario */
+        }
+        
+        /* Tarjetas de Comida (si se usan dentro de .day-content) */
+        .day-content .meal-day-card {
+            background-color: transparent; /* El fondo lo da .day-content */
+            border: none; /* Sin borde extra si está dentro de .day-content */
+            box-shadow: none; /* Sin sombra extra */
+            padding: 0; /* Sin padding extra */
+            margin-bottom: 0;
+        }
+        .day-content .meal-day-card h4 { /* Título de la tabla de comidas */
+             color: #4dd0e1; 
+             margin-top: 0;
+             border-bottom: 1px solid #00796b;
+             padding-bottom: 8px;
+             font-size: 1.3em; 
+             text-align: center;
+             margin-bottom: 15px;
+        }
+
+
+        /* Tablas */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+            font-size: 0.95em;
+        }
+
+        th, td {
+            border: 1px solid #4a4a4a;
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #00695c;
+            color: #ffffff;
+            font-weight: bold;
+        }
+
+        tr:nth-child(even) {
+            background-color: #3a3a3a;
+        }
+        tr:hover {
+            background-color: #4f4f4f;
+        }
+        
+        /* Centrado de macros y kcal en tablas de comidas */
+        .day-content table td:last-child,
+        .day-content table th:last-child,
+        .day-content table td:nth-last-child(2),
+        .day-content table th:nth-last-child(2),
+        .day-content table td:nth-last-child(3),
+        .day-content table th:nth-last-child(3),
+        .day-content table td:nth-last-child(4),
+        .day-content table th:nth-last-child(4) {
+            text-align: center; 
+        }
+
+        /* Notas */
+        .note {
+            background-color: #424242;
+            border-left: 4px solid #009688;
+            padding: 12px;
+            margin-top: 15px;
+            border-radius: 4px;
+            font-style: italic;
+        }
+
+        /* Detalles de Ejercicios */
+        .exercise-details {
+            background-color: #383838;
+            border-left: 4px solid #4db6ac;
+            padding: 15px;
+            margin-top: 15px; /* Espacio antes del bloque de ejemplo */
+            margin-bottom: 20px;
+            border-radius: 6px;
+        }
+
+        .exercise-details h4 {
+            color: #80deea;
+            margin-top: 0;
+            font-size: 1.3em;
+        }
+        .exercise-details ul, .exercise-details ol {
+            margin-bottom: 0; /* Evitar doble margen si es el último elemento */
+        }
+
+
+        /* Pie de Página */
+        footer {
+            text-align: center;
+            padding: 20px;
+            background-color: #101010;
+            color: #757575;
+            margin-top: 30px;
+            font-size: 0.9em;
+        }
+
+        /* Ajustes Responsivos */
+        @media (max-width: 768px) {
+            header {
+                padding: 15px 20px;
+                position: static; /* En móvil, el header no es fijo para ahorrar espacio */
+            }
+            main {
+                padding-top: 0;
+            }
+
+            header h1 {
+                font-size: 1.8em;
+            }
+            header nav {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+            header nav a {
+                font-size: 0.9em;
+                margin: 5px 0; /* Espacio vertical entre enlaces en móvil */
+                display: block;
+                width: 80%;
+            }
+
+            .main-section {
+                padding: 15px;
+                margin: 15px;
+            }
+            .main-section h2 {
+                font-size: 1.6em;
+            }
+            .day-button {
+                font-size: 1.1em;
+                padding: 12px 15px;
+            }
+             .day-content .subsection h3 {
+                font-size: 1.2em;
+            }
+            .day-content .subsection h4 {
+                font-size: 1.1em;
+            }
+            .exercise-details h4 {
+                 font-size: 1.15em;
+            }
+
+            table {
+                font-size: 0.85em; /* Tablas más pequeñas en móvil */
+            }
+            th, td {
+                padding: 8px;
+            }
+        }
+         @media (max-width: 480px) {
+            header h1 {
+                font-size: 1.5em;
+            }
+            header .subtitle {
+                font-size: 0.9em;
+            }
+            header nav a {
+                font-size: 0.85em;
+                padding: 8px;
+            }
+             .main-section h2 {
+                font-size: 1.4em;
+            }
+            .day-button {
+                font-size: 1em;
+            }
+        }
     </style>
 </head>
 <body>
-    <div id="root" class="bg-slate-900 text-slate-100 antialiased min-h-screen flex flex-col">
-        {/* El contenido de React se renderizará aquí. 
-            Si ves esto, React no se ha cargado o ha fallado. */}
-    </div>
 
-    <script type="text/babel">
-        // Asegurarse de que React y ReactDOM están disponibles
-        if (typeof React === 'undefined' || typeof ReactDOM === 'undefined') {
-            console.error("React or ReactDOM not loaded. App cannot start.");
-            document.getElementById('root').innerHTML = '<p style="color: red; text-align: center; padding-top: 50px;">Error: React no pudo cargarse. Por favor, revisa la consola.</p>';
-        } else {
-            const { useState, useEffect, useMemo, useRef } = React;
-            
-            const motion = (typeof window["framer-motion"] !== 'undefined' && window["framer-motion"].motion)
-                ? window["framer-motion"].motion 
-                : { 
-                    section: ({ children, ...props }) => <section {...props}>{children}</section>, 
-                    div: ({ children, ...props }) => <div {...props}>{children}</div>,
-                    h1: ({ children, ...props }) => <h1 {...props}>{children}</h1>,
-                    p: ({ children, ...props }) => <p {...props}>{children}</p>,
-                    a: ({ children, ...props }) => <a {...props}>{children}</a>,
-                    img: ({ ...props }) => <img {...props} />
-                  };
+    <header>
+        <h1>Protocolo Integral para Reducir Grasa Sin Perder Músculo</h1>
+        <p class="subtitle">(35 años, 81.6 kg, 21.2% GC)</p>
+        <nav>
+            <a href="#plan-entrenamiento-section">Plan de Entrenamiento</a>
+            <a href="#plan-comidas-section">Plan de Comidas</a>
+            <a href="#recomendaciones-section">Recomendaciones y Tips</a>
+        </nav>
+    </header>
 
-            const FallbackIcon = ({ name, size = 24, className = "" }) => (
-                <span className={`inline-block ${className}`} style={{ width: size, height: size, border: '1px solid currentColor', borderRadius: '4px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontStyle: 'italic', fontSize: size * 0.6 }}>
-                  {name ? name.substring(0,1).toUpperCase() : '?'}
-                </span>
-            );
+    <main>
+        <section id="plan-entrenamiento-section" class="main-section">
+            <h2>Plan de Entrenamiento</h2>
 
-            const getIcon = (iconName) => {
-                if (typeof window.lucideReact !== 'undefined' && window.lucideReact && window.lucideReact[iconName]) {
-                    return window.lucideReact[iconName];
-                }
-                console.warn(`Lucide icon "${iconName}" not found, using fallback.`);
-                return (props) => <FallbackIcon name={iconName} {...props} />;
-            };
-            
-            let IconMail, IconPhone, IconLinkedin, IconDownload, IconMenu, IconX, IconBriefcase, IconUser, IconCode, IconAward, IconMessageSquare, IconMapPin, IconLanguages, IconBrain, IconUsers, IconBookOpen, IconFileText, IconExternalLink, IconChevronDown, IconShieldCheck, IconZap;
+            <div class="subsection"> <h3>Esquema Semanal (5 días híbrido: pesas + cardio)</h3>
+                <p>Gimnasio 4 días + 1 día exterior:</p>
+                <table>
+                    <thead><tr><th>Día</th><th>Entrenamiento</th><th>Enfoque principal (resumen)</th></tr></thead>
+                    <tbody>
+                        <tr><td>Lunes</td><td>Fuerza (tren superior)</td><td>Pesos libres pesados (compuestos). Rango 4-6 reps, RPE 8-9, descanso 2-3'. Retención de fuerza y masa muscular.</td></tr>
+                        <tr><td>Martes</td><td>Fuerza (tren inferior)</td><td>Ejercicios básicos de pierna (sentadilla, peso muerto, etc.) 4-6 reps, RPE 8-9, desc. 2-3'. Enfoque en potencia y sobrecarga progresiva.</td></tr>
+                        <tr><td>Miércoles</td><td>Descanso / Cardio ligero</td><td>Recuperación (ej. caminata 30-40′ o movilidad). Opcional cardio suave para circulación sin fatiga significativa.</td></tr>
+                        <tr><td>Jueves</td><td>Metabólico (tren superior)</td><td>Entrenamiento hipertrofia/metabólico (supersets/circuitos). 8-15 reps, RPE 7-8, desc. 60-90". Elevado ritmo cardíaco, "pump" muscular.</td></tr>
+                        <tr><td>Viernes</td><td>Metabólico (tren inferior)</td><td>Sesión metabólica piernas (ej. supersets de cuádriceps-femorales). 10-15 reps, RPE 7-8. Trabajo de resistencia muscular y quema extra de calorías.</td></tr>
+                        <tr><td>Sábado</td><td>Exterior (HIIT/full-body)</td><td>Entreno al aire libre intensivo: sprints, cuestas, circuito cuerpo completo (RPE alto ~9). Mejora cardiovascular sin perder músculo.</td></tr>
+                        <tr><td>Domingo</td><td>Descanso</td><td>Descanso total. Enfoque en recuperación muscular, sueño y relajación.</td></tr>
+                    </tbody>
+                </table>
+                <p class="note">Nota: Hacer el cardio después de las pesas (o en días separados) minimiza la interferencia en fuerza/masa. Mantener 1-2 días de descanso a la semana ayuda a la recuperación.</p>
+            </div>
 
-            function initializeIcons() {
-                // Solo inicializar si lucideReact está cargado
-                if (typeof window.lucideReact !== 'undefined') {
-                    IconMail = getIcon('Mail'); IconPhone = getIcon('Phone'); IconLinkedin = getIcon('Linkedin'); IconDownload = getIcon('Download'); IconMenu = getIcon('Menu'); IconX = getIcon('X'); IconBriefcase = getIcon('Briefcase'); IconUser = getIcon('User'); IconCode = getIcon('Code'); IconAward = getIcon('Award'); IconMessageSquare = getIcon('MessageSquare'); IconMapPin = getIcon('MapPin'); IconLanguages = getIcon('Languages'); IconBrain = getIcon('Brain'); IconUsers = getIcon('Users'); IconBookOpen = getIcon('BookOpen'); IconFileText = getIcon('FileText'); IconExternalLink = getIcon('ExternalLink'); IconChevronDown = getIcon('ChevronDown'); IconShieldCheck = getIcon('ShieldCheck'); IconZap = getIcon('Zap');
-                } else {
-                    console.error("lucideReact no está definido al momento de initializeIcons. Los iconos no se cargarán.");
-                }
-            }
-            
-            const cvData = {
-              name: "José Carlos Martín Lache",
-              contact: { email: "joselache103@gmail.com", linkedin: "linkedin.com/in/carlosmartin-it", linkedinFullUrl: "https://linkedin.com/in/carlosmartin-it", dob: "09.01.1990", nationality: "Kubanisch", drivingLicense: "Klasse B", },
-              aboutMe: "IT-Support Spezialist mit über 5 Jahren Erfahrung im 2nd-/3rd Level-Support, aktuell bei Mercedes-Benz AG über Computacenter AG im Einsatz. Fundierte Kenntnisse in Microsoft-Technologien, Netzwerken & Hardware. Seit 2019 in Deutschland wohnhaft. Derzeit in Weiterbildung im Bereich Cybersecurity. Kundenfokussiert, lösungsorientiert, technikaffin.",
-              experience: [
-                { id: "exp1", company: "Deutsche Technikberatung GmbH", role: "IT-Consultant (Minijob)", period: "02/2024 – heute", location: "Köln", responsibilities: ["Beratung und technische Unterstützung privater Kund:innen vor Ort und remote", "Installation und Konfiguration von IT- und Smart-Home Geräten", "Schulung von Endanwender:innen und technische Fehlerdiagnose"], technologies: ["Smart Home", "Remote Support", "Hardware Installation"]},
-                { id: "exp2", company: "Computacenter AG & Co. oHG – Projekt: Mercedes-Benz Group AG", role: "IT Specialist / 2nd-3rd Level Support", period: "04/2022 – heute", location: "Köln", responsibilities: ["Betreuung in IT-relevanten Themen (Hardware, Software, Netzwerk, Konferenztechnik)", "Lösung von IT-Problemen telefonisch und vor Ort im Microsoft-Umfeld", "Konfiguration & Austausch von IT-Komponenten inkl. Lifecycle Management", "Einbau und Grundkonfiguration von Serverhardware im RZ (BIOS, Verkabelung)", "Schulung von Anwender:innen & Dokumentation im Ticketsystem"], technologies: ["Microsoft Windows", "Hardware Support", "Network Support", "Server Hardware", "Ticketing Systems"]},
-                { id: "exp3", company: "Prox-Systems Germany GmbH", role: "IT Techniker", period: "08/2020 – 02/2022", location: "Köln", responsibilities: ["Konfiguration von Netzwerken und Kassensystemen", "Technischer Support und Reparatur vor Ort", "Wartung & Aktualisierung von Hard- und Software"], technologies: ["Network Configuration", "POS Systems", "On-site Support", "Hardware Maintenance"]},
-                { id: "exp4", company: "Sprachkurs & Nebenjob im Gastgewerbe", role: "Sprachintegration & Nebentätigkeit", period: "06/2019 – 05/2020", location: "Köln", responsibilities: ["Teilnahme an einem intensiven Deutschsprachkurs zur beruflichen Integration", "Praktische Erfahrung im Kundenservice, Teamarbeit und Stressbewältigung im Gastronomiebereich"], technologies: ["Customer Service", "Teamwork"]},
-                { id: "exp5", company: "Freiberuflicher IT-Techniker", role: "IT-Techniker", period: "01/2012 – 11/2018", location: "Havanna, Kuba", responsibilities: ["Reparatur und Wartung von Mobiltelefonen und Computern", "Installation von Betriebssystemen, Software und Apps", "Kundenberatung und technische Unterstützung im privaten Umfeld", "Durchführung kleiner Schulungen zur Nutzung digitaler Geräte"], technologies: ["Hardware Repair", "OS Installation", "Software Support", "Mobile Devices"]},
-              ],
-              education: [ { id: "edu1", institution: "Universidad de las Ciencias Informáticas (UCI)", degree: "Studium der Informationstechnologie (nicht abgeschlossen)", period: "2008 – 2011", location: "Havanna, Kuba", focus: ["Netzwerktechnik", "Datenbankmanagement", "IT-Sicherheit", "Systemadministration"]}, ],
-              skills: { systemsPlatforms: "Windows 10/11, macOS, Microsoft 365, Linux (Grundkenntnisse), LibreOffice, Virtualisierung (VMware, Hyper-V)", networksSecurity: "TCP/IP, LAN/WAN, IT-Infrastruktur, Firewalls (Grundkenntnisse), Netzwerksicherheit, HP Data Protector", itSupportProcesses: "2nd-/3rd Level-Support, Troubleshooting, Remote-Support, Lifecycle Management, Ticketing-Systeme (ServiceNow, ITSM)", automationDigitalization: "Grundlagen der Prozessautomatisierung, erste praktische Erfahrungen mit KI-gestützten Tools, starkes Interesse an Workflow-Optimierung und KI-basierten Lösungen", documentationTraining: "Enduser-Schulung, Technische Dokumentation, Kundenkommunikation, Onboarding-Support", softSkills: "Analytisches Denken, Selbstorganisation, Teamfähigkeit, Kundenorientierung, interkulturelle Kompetenz", },
-              languages: [ { id: "lang1", lang: "Spanisch", level: "Muttersprache" }, { id: "lang2", lang: "Deutsch", level: "Fließend (C1)" }, { id: "lang3", lang: "Englisch", level: "Fließend" }, ],
-              furtherEducation: [ { id: "cert1", course: "Cybersecurity Weiterbildung (Google Career Certificate)", topics: ["Netzwerksicherheit", "Linux", "SIEM", "Schwachstellenanalyse", "SQL", "Cyberbedrohungen"], period: "2024 – heute"}, ],
-            };
-            // Actualizado el enlace del CV
-            const CV_FILE_PATH = "https://drive.google.com/file/d/1gw4jebAqZOO2lzkNd2EC8Fx2V0gJk9xV/view?usp=sharing"; 
-
-            const sectionVariants = { hidden: { opacity: 0, y: 40 }, visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: "easeOut" } } };
-            const cardVariants = { hidden: { opacity: 0, y: 30 }, visible: (i) => ({ opacity: 1, y: 0, transition: { duration: 0.5, delay: i * 0.1, ease: "easeOut" } }) };
-
-            const Navbar = () => {
-              const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-              const navRef = useRef(null);
-
-              useEffect(() => {
-                if (navRef.current && typeof window.Headroom !== 'undefined') {
-                  const headroom = new window.Headroom(navRef.current, { tolerance: 5, offset: 80 });
-                  headroom.init();
-                  return () => headroom.destroy();
-                } else {
-                  if (!navRef.current) console.warn("Navbar ref not found for Headroom.");
-                  if (typeof window.Headroom === 'undefined') console.warn("Headroom.js not loaded.");
-                }
-              }, []);
-
-              const navLinks = [ { href: "#about", label: "Über mich" }, { href: "#experience", label: "Erfahrung" }, { href: "#skills", label: "Kenntnisse" }, { href: "#education", label: "Ausbildung" }, { href: "#contact", label: "Kontakt" }, ];
-
-              return (
-                <nav ref={navRef} className="sticky top-0 z-50 bg-slate-800/[.80] dark:bg-slate-900/[.80] backdrop-blur-md shadow-lg p-4 headroom">
-                  <div className="container mx-auto flex justify-between items-center">
-                    <a href="#hero" className="text-2xl font-bold futuristic-gradient-text">JCM</a>
-                    <div className="hidden md:flex space-x-4 items-center">
-                      {navLinks.map(link => ( <a key={link.href} href={link.href} className="text-slate-200 hover:text-teal-400 transition-colors">{link.label}</a> ))}
-                      {/* Enlace actualizado para el CV, target="_blank" para abrir en nueva pestaña */}
-                      <a href={CV_FILE_PATH} target="_blank" rel="noopener noreferrer" download="Lebenslauf_Jose_Carlos_Martin_Lache.pdf" className="bg-teal-500 hover:bg-teal-600 text-white font-bold py-2 px-4 rounded-lg transition-colors flex items-center space-x-2" title="CV Herunterladen">
-                        {IconDownload && <IconDownload size={18} />} <span>CV</span>
-                      </a>
+            <div class="day-toggle">
+                <button class="day-button" data-target="entrenamiento-lunes">
+                    Lunes: Fuerza (Tren Superior) <span class="toggle-icon">+</span>
+                </button>
+                <div id="entrenamiento-lunes" class="day-content" style="display: none;">
+                    <div class="subsection">
+                        <h3>Detalles Entrenamiento Lunes: Fuerza (Tren Superior)</h3>
+                        <p><strong>Objetivo:</strong> Maximizar la tensión mecánica para mantener/ganar masa muscular y fuerza pese al déficit calórico.</p>
+                        <p><strong>Estructura:</strong> 4-5 ejercicios multiarticulares. Completar 3-5 series de ~4-6 repeticiones efectivas por ejercicio principal, RPE 8-9. Descansos amplios de 2-3 minutos.</p>
+                        <div class="exercise-details">
+                            <h4>Ejemplo de Rutina:</h4>
+                            <ul>
+                                <li>Press de banca con barra - $4 \times 5$ reps (RPE 8, 2.5' descanso)</li>
+                                <li>Dominadas lastradas - $4 \times 5$ reps (RPE 9 en última serie, 3' desc.)</li>
+                                <li>Press militar de pie - $3 \times 6$ reps (RPE 8, 2' desc.)</li>
+                                <li>Remo con barra - $3 \times 6$ reps (RPE 8, 2' desc.)</li>
+                                <li>Accesorios: Curl bíceps $3 \times 8-10$, Extensión triceps $3 \times 10$ (RPE ~8, descansos 60-90")</li>
+                            </ul>
+                        </div>
+                        <p><strong>Volumen semanal:</strong> Pecho/hombro/brazo se trabajan también el jueves. Priorizar técnica y sobrecarga progresiva.</p>
                     </div>
-                    <div className="md:hidden">
-                      <button onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} className="text-slate-200 focus:outline-none">
-                        {isMobileMenuOpen ? (IconX && <IconX size={28} />) : (IconMenu && <IconMenu size={28} />)}
-                      </button>
+                </div>
+            </div>
+
+            <div class="day-toggle">
+                <button class="day-button" data-target="entrenamiento-martes">
+                    Martes: Fuerza (Tren Inferior) <span class="toggle-icon">+</span>
+                </button>
+                <div id="entrenamiento-martes" class="day-content" style="display: none;">
+                    <div class="subsection">
+                        <h3>Detalles Entrenamiento Martes: Fuerza (Tren Inferior)</h3>
+                        <p><strong>Objetivo:</strong> Similar al lunes, enfocado en el tren inferior.</p>
+                        <p><strong>Estructura:</strong> Ejercicios como sentadilla, peso muerto, hip thrust, prensa. 3-5 series de 4-6 reps, RPE 8-9, descanso 2-3'.</p>
+                         <div class="exercise-details">
+                            <h4>Ejemplo de Rutina (Orientativo):</h4>
+                            <ul>
+                                <li>Sentadilla con barra - $4 \times 5$ reps (RPE 8-9, 3' descanso)</li>
+                                <li>Peso muerto rumano - $3 \times 6-8$ reps (RPE 8, 2.5' descanso)</li>
+                                <li>Prensa de piernas - $3 \times 6-8$ reps (RPE 8, 2' descanso)</li>
+                                <li>Hip thrust con barra - $3 \times 8-10$ reps (RPE 8, 2' descanso)</li>
+                                <li>Extensiones de cuádriceps / Curl femoral (opcional) - $2-3 \times 10-12$ reps</li>
+                            </ul>
+                        </div>
+                        <p><strong>Volumen semanal:</strong> Piernas se trabajan también el viernes. Enfoque en potencia y sobrecarga progresiva.</p>
                     </div>
-                  </div>
-                  {isMobileMenuOpen && (
-                    <div className="md:hidden absolute top-full left-0 right-0 bg-slate-800/[.95] dark:bg-slate-900/[.95] shadow-lg p-4 flex flex-col space-y-3">
-                      {navLinks.map(link => ( <a key={link.href} href={link.href} className="text-slate-200 hover:text-teal-400 transition-colors py-2 text-center" onClick={() => setIsMobileMenuOpen(false)}>{link.label}</a> ))}
-                      {/* Enlace actualizado para el CV, target="_blank" para abrir en nueva pestaña */}
-                      <a href={CV_FILE_PATH} target="_blank" rel="noopener noreferrer" download="Lebenslauf_Jose_Carlos_Martin_Lache.pdf" className="bg-teal-500 hover:bg-teal-600 text-white font-bold py-2 px-4 rounded-lg transition-colors flex items-center justify-center space-x-2 mt-2" title="CV Herunterladen">
-                        {IconDownload && <IconDownload size={18} />} <span>CV Herunterladen</span>
-                      </a>
-                    </div>
-                  )}
-                </nav>
-              );
-            };
-
-            const HeroSection = () => {
-              const jobTitleRef = useRef(null);
-
-              useEffect(() => {
-                if (typeof window.tsParticles !== 'undefined' && typeof window.tsParticles.load === 'function') {
-                  window.tsParticles.load("tsparticles", { preset: "stars", background: { color: { value: "#0f172a" } }, particles: { color: { value: "#14b8a6" } }, fullScreen: { enable: false, zIndex: -1 }, }).catch(error => console.error("Error loading tsParticles:", error));
-                } else { console.warn("tsParticles not available for HeroSection."); }
-
-                if (jobTitleRef.current && typeof window.Typed !== 'undefined') {
-                  const typedInstance = new window.Typed(jobTitleRef.current, { strings: ["IT-Support Spezialist", "Cybersecurity Enthusiast", "Tech-Lover 🚀"], typeSpeed: 60, backSpeed: 35, backDelay: 1800, loop: true, });
-                  return () => typedInstance.destroy();
-                } else {
-                  if (!jobTitleRef.current) console.warn("Job title ref not found for Typed.js.");
-                  if (typeof window.Typed === 'undefined') console.warn("Typed.js not loaded.");
-                }
-              }, []);
-
-              return (
-                <motion.section id="hero" className="min-h-screen flex flex-col justify-center items-center text-center p-8 bg-slate-900 relative overflow-hidden" variants={sectionVariants} initial="hidden" animate="visible">
-                  <div id="tsparticles" className="absolute inset-0 -z-10"></div>
-                  <div className="z-10 p-6 bg-slate-900/50 backdrop-blur-sm rounded-xl">
-                      <motion.h1 className="text-5xl md:text-7xl font-bold mb-4" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.2, ease: "easeOut" }}>
-                        <span className="futuristic-gradient-text">{cvData.name}</span>
-                      </motion.h1>
-                      <motion.p id="job-title" ref={jobTitleRef} className="text-2xl md:text-3xl text-teal-300 mb-8 h-10 md:h-12" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.4, ease: "easeOut" }}>&nbsp;</motion.p>
-                      <motion.img src="https://source.unsplash.com/400x400/?tech,server,futuristic,code" alt="Abstrakte technische Illustration" className="mx-auto w-32 h-32 md:w-40 md:h-40 rounded-full mb-6 object-cover shadow-lg border-2 border-teal-500/50" initial={{ opacity: 0, scale: 0.8 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.5, delay: 0.5, ease: "easeOut" }} onError={(e) => { e.target.onerror = null; e.target.src="https://placehold.co/400x400/0f172a/14b8a6?text=JCM"; }} />
-                      <motion.div className="space-y-4 sm:space-y-0 sm:space-x-4" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.6, ease: "easeOut" }}>
-                        <a href="#experience" className="w-full sm:w-auto inline-block bg-teal-500 hover:bg-teal-600 text-white font-bold py-3 px-8 rounded-lg transition-transform transform hover:scale-105 shadow-lg hover:shadow-teal-500/50 text-lg">Meine Erfahrung</a>
-                        <a href="#contact" className="w-full sm:w-auto inline-block border-2 border-teal-500 text-teal-500 hover:bg-teal-500 hover:text-white font-bold py-3 px-8 rounded-lg transition-all transform hover:scale-105 shadow-lg hover:shadow-teal-500/50 text-lg">Kontakt</a>
-                      </motion.div>
-                  </div>
-                </motion.section>
-              );
-            };
+                </div>
+            </div>
             
-            const AboutSection = () => (
-              <motion.section id="about" className="py-16 md:py-24 px-6 md:px-8 bg-slate-800" variants={sectionVariants} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.3 }}>
-                <div className="container mx-auto">
-                  <div className="flex items-center mb-4 justify-center"> {IconUser && <IconUser size={32} className="text-teal-400 mr-3" />} <h2 className="text-3xl md:text-4xl font-bold futuristic-gradient-text">Über mich</h2> </div>
-                  <p className="text-lg md:text-xl text-slate-300 leading-relaxed max-w-3xl mx-auto text-center">{cvData.aboutMe}</p>
-                </div>
-              </motion.section>
-            );
-
-            const ExperienceSection = () => {
-              const [expandedItem, setExpandedItem] = useState(null);
-              const tiltCardRefs = useRef([]);
-
-              useEffect(() => {
-                if (typeof window.VanillaTilt !== 'undefined') {
-                  const nodesToTilt = tiltCardRefs.current.filter(Boolean);
-                  if (nodesToTilt.length > 0) { window.VanillaTilt.init(nodesToTilt, { max: 8, speed: 400, glare: true, "max-glare": 0.2 }); }
-                } else { console.warn("VanillaTilt.js not loaded for ExperienceSection."); }
-              }, [cvData.experience]);
-
-              return (
-                <motion.section id="experience" className="py-16 md:py-24 px-6 md:px-8 bg-slate-900" variants={sectionVariants} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.1 }}>
-                  <div className="container mx-auto">
-                    <div className="flex items-center mb-12 justify-center"> {IconBriefcase && <IconBriefcase size={32} className="text-teal-400 mr-3" />} <h2 className="text-3xl md:text-4xl font-bold futuristic-gradient-text">Berufserfahrung</h2> </div>
-                    <div className="relative">
-                      {cvData.experience.map((job, index) => (
-                        <motion.div key={job.id} className="timeline-item group mb-10 relative pl-12 sm:pl-16" custom={index} variants={cardVariants} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.3 }}>
-                          <div className="timeline-marker"></div>
-                          <div ref={el => tiltCardRefs.current[index] = el} className="tilt-card bg-slate-800 p-6 rounded-lg shadow-xl hover:shadow-teal-500/20 transition-shadow duration-300 ease-in-out transform hover:-translate-y-1 cursor-pointer" onClick={() => setExpandedItem(expandedItem === job.id ? null : job.id)}>
-                            <div className="flex justify-between items-start">
-                              <div> <h3 className="text-xl sm:text-2xl font-semibold text-teal-400">{job.role}</h3> <p className="text-md sm:text-lg text-slate-400 mb-1">{job.company} - {job.location}</p> <p className="text-sm text-slate-500 mb-3">{job.period}</p> </div>
-                              <span className={`transform transition-transform duration-300 ${expandedItem === job.id ? 'rotate-180' : 'rotate-0'}`}> {IconChevronDown && <IconChevronDown size={24} className="text-teal-400" />} </span>
-                            </div>
-                            {expandedItem === job.id && (
-                              <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: 'auto' }} transition={{ duration: 0.3 }} className="mt-4 pt-4 border-t border-slate-700 overflow-hidden">
-                                <h4 className="text-md font-semibold text-slate-300 mb-2">Aufgabenbereiche:</h4> <ul className="list-disc list-inside text-slate-300 space-y-1 pl-2"> {job.responsibilities.map((resp, i) => <li key={i}>{resp}</li>)} </ul>
-                                {job.technologies && job.technologies.length > 0 && ( <div className="mt-4"> <h5 className="text-sm font-semibold text-slate-400 mb-2">Technologien/Projekte:</h5> <div className="flex flex-wrap gap-2"> {job.technologies.map((tech, i) => ( <span key={i} className="inline-block bg-slate-700 rounded-full px-3 py-1 text-xs font-semibold text-slate-200 hover:bg-teal-600 transition-colors">{tech}</span> ))} </div> </div> )}
-                              </motion.div>
-                            )}
-                          </div>
-                        </motion.div>
-                      ))}
+            <div class="day-toggle">
+                <button class="day-button" data-target="entrenamiento-miercoles">
+                    Miércoles: Descanso / Cardio Ligero <span class="toggle-icon">+</span>
+                </button>
+                <div id="entrenamiento-miercoles" class="day-content" style="display: none;">
+                    <div class="subsection">
+                        <h3>Detalles Miércoles: Recuperación Activa</h3>
+                        <p><strong>Objetivo:</strong> Facilitar la recuperación muscular y mantener un ligero gasto calórico sin generar fatiga adicional.</p>
+                        <p><strong>Actividades Sugeridas:</strong></p>
+                        <ul>
+                            <li>Caminata ligera a moderada: 30-45 minutos.</li>
+                            <li>Sesión de movilidad articular y estiramientos dinámicos: 15-20 minutos.</li>
+                            <li>Yoga suave o Pilates de baja intensidad.</li>
+                            <li>Opcional: Cardio muy suave en máquina (bicicleta, elíptica) a baja intensidad, 20-30 minutos, manteniendo la frecuencia cardíaca baja.</li>
+                        </ul>
+                        <p class="note">La clave es que estas actividades no deben sentirse como un entrenamiento, sino como una forma de ayudar al cuerpo a recuperarse para las sesiones más intensas.</p>
                     </div>
-                  </div>
-                </motion.section>
-              );
-            };
+                </div>
+            </div>
+
+
+            <div class="day-toggle">
+                <button class="day-button" data-target="entrenamiento-jueves">
+                    Jueves: Metabólico (Tren Superior) <span class="toggle-icon">+</span>
+                </button>
+                <div id="entrenamiento-jueves" class="day-content" style="display: none;">
+                    <div class="subsection">
+                        <h3>Detalles Entrenamiento Jueves: Metabólico (Tren Superior)</h3>
+                        <p><strong>Objetivo:</strong> Elevar gasto calórico, mejorar resistencia muscular, estimular hipertrofia con estrés metabólico.</p>
+                        <p><strong>Estructura:</strong> Superseries o circuitos. 4-6 ejercicios, 8-15 reps por serie, RPE 7-8. Descansos cortos ($30-60^{\prime\prime}$ entre ejercicios, o 1-2' al finalizar circuito).</p>
+                        <div class="exercise-details">
+                            <h4>Ejemplo de Rutina (Orientativo - Superseries A-B):</h4>
+                            <ul>
+                                <li><strong>Superserie 1 (3-4 rondas):</strong>
+                                    <ul>
+                                        <li>A1: Press inclinado con mancuernas - 10-12 reps</li>
+                                        <li>A2: Remo con mancuerna a una mano - 10-12 reps por brazo (descanso 60-90" tras A2)</li>
+                                    </ul>
+                                </li>
+                                <li><strong>Superserie 2 (3-4 rondas):</strong>
+                                    <ul>
+                                        <li>B1: Aperturas planas o peck deck - 12-15 reps</li>
+                                        <li>B2: Jalones al pecho o dominadas asistidas - 12-15 reps (descanso 60-90" tras B2)</li>
+                                    </ul>
+                                </li>
+                                 <li><strong>Circuito de Hombros/Brazos (2-3 rondas):</strong>
+                                    <ul>
+                                        <li>Elevaciones laterales - 15 reps</li>
+                                        <li>Press francés o extensiones de tríceps en polea - 12-15 reps</li>
+                                        <li>Curl de bíceps con barra Z o mancuernas - 12-15 reps (descanso 90-120" tras el circuito)</li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                        <p><strong>Detalles:</strong> Mantener técnica con fatiga. Descansos cortos para inducir estrés metabólico y aumentar EPOC.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="day-toggle">
+                <button class="day-button" data-target="entrenamiento-viernes">
+                    Viernes: Metabólico (Tren Inferior) <span class="toggle-icon">+</span>
+                </button>
+                <div id="entrenamiento-viernes" class="day-content" style="display: none;">
+                    <div class="subsection">
+                        <h3>Detalles Entrenamiento Viernes: Metabólico (Tren Inferior)</h3>
+                        <p><strong>Objetivo:</strong> Similar al jueves, enfocado en piernas. Quema extra de calorías y resistencia muscular.</p>
+                        <p><strong>Estructura:</strong> Superseries o circuitos, 10-15 reps, RPE 7-8.</p>
+                        <div class="exercise-details">
+                            <h4>Ejemplo de Circuito (3 rondas, descanso 2' entre rondas):</h4>
+                            <ol>
+                                <li>Zancadas con mancuernas - 12 reps por pierna</li>
+                                <li>Sentadilla goblet (mancuerna pecho) - 15 reps</li>
+                                <li>Hip thrust con barra o peso corporal - 15-20 reps</li>
+                                <li>Salto pliométrico en caja o sentadilla con salto - 10-12 reps explosivos</li>
+                            </ol>
+                            <h4>Superset Adicional (3 sets):</h4>
+                            <ul>
+                                <li>Curl femoral tumbado o sentado - 12-15 reps</li>
+                                <li>Elevación de gemelos de pie o sentado - 15-20 reps (descanso 60" entre supersets)</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="day-toggle">
+                <button class="day-button" data-target="entrenamiento-sabado">
+                    Sábado: Exterior (HIIT/Full-Body) <span class="toggle-icon">+</span>
+                </button>
+                <div id="entrenamiento-sabado" class="day-content" style="display: none;">
+                    <div class="subsection">
+                        <h3>Detalles Entrenamiento Sábado: Exterior (HIIT/Full-Body)</h3>
+                        <p><strong>Objetivo:</strong> Cardio alta intensidad, resistencia, variedad mental. Acelera pérdida de grasa sin sacrificar músculo.</p>
+                        <p><strong>Formato:</strong> HIIT de carrera + circuito funcional (aprox. 45-60 minutos total).</p>
+                        <div class="exercise-details">
+                            <h4>Ejemplo de Estructura:</h4>
+                            <ul>
+                                <li><strong>Calentamiento:</strong> Trote suave 5-10' + movilidad dinámica.</li>
+                                <li><strong>Bloque 1 - Sprints en colina/plano:</strong> 8 series de $15^{\prime\prime}$ sprint (RPE 9-10) con 45-60" recuperación activa (caminata).
+                                    <br><em>Alternativas:</em> Cuestas en bicicleta, sprints en ergómetro de remo o bici estática ($20" ON / 40" OFF \times 8-10$ series).
+                                </li>
+                                <li><strong>Bloque 2 - Circuito funcional (3 rondas, descanso 2' entre rondas):</strong>
+                                    <ol>
+                                        <li>Burpees - 15-20 reps</li>
+                                        <li>Sentadillas con salto - 15 reps</li>
+                                        <li>Fondos de brazo (push-ups) - Max reps / hasta fallo técnico</li>
+                                        <li>Plancha abdominal - $30-45^{\prime\prime}$</li>
+                                    </ol>
+                                </li>
+                                <li><strong>Enfriamiento:</strong> Caminar 5' + estiramientos estáticos suaves.</li>
+                            </ul>
+                        </div>
+                        <p><strong>Comentarios:</strong> Separado de días pesados de piernas. Ajustar volumen según nivel. Puede aportar vitamina D si es soleado.</p>
+                    </div>
+                </div>
+            </div>
             
-            const SkillsSection = () => {
-              const skillCategories = useMemo(() => [ { category: "Systeme & Plattformen", details: cvData.skills.systemsPlatforms.split(', ').map(s => s.trim()), id: "systems", iconName: "Code" }, { category: "Netzwerke & Sicherheit", details: cvData.skills.networksSecurity.split(', ').map(s => s.trim()), id: "networks", iconName: "ShieldCheck" }, { category: "IT-Support & Prozesse", details: cvData.skills.itSupportProcesses.split(', ').map(s => s.trim()), id: "itsupport", iconName: "Users" }, { category: "Automatisierung & Digitalisierung", details: cvData.skills.automationDigitalization.split(', ').map(s => s.trim()), id: "automation", iconName: "Zap" }, { category: "Dokumentation & Schulung", details: cvData.skills.documentationTraining.split(', ').map(s => s.trim()), id: "documentation", iconName: "FileText" }, { category: "Soft Skills", details: cvData.skills.softSkills.split(', ').map(s => s.trim()), id: "softskills", iconName: "Brain" }, ], []);
-              const [searchTerm, setSearchTerm] = useState('');
-              const [filteredSkills, setFilteredSkills] = useState(skillCategories);
-
-              useEffect(() => { const lowerSearchTerm = searchTerm.toLowerCase(); if (!lowerSearchTerm) { setFilteredSkills(skillCategories); return; } const filtered = skillCategories.map(category => ({ ...category, details: category.details.filter(detail => detail.toLowerCase().includes(lowerSearchTerm)) })).filter(category => category.details.length > 0 || category.category.toLowerCase().includes(lowerSearchTerm)); setFilteredSkills(filtered); }, [searchTerm, skillCategories]);
-              const renderSkillIcon = (iconNameString) => { const IconComponent = getIcon(iconNameString); return IconComponent ? <IconComponent size={20} className="mr-2 text-teal-400" /> : <FallbackIcon name={iconNameString} size={20} className="mr-2"/>; };
-
-              return (
-                <motion.section id="skills" className="py-16 md:py-24 px-6 md:px-8 bg-slate-800" variants={sectionVariants} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.1 }}>
-                  <div className="container mx-auto">
-                    <div className="flex items-center mb-12 justify-center"> {IconAward && <IconAward size={32} className="text-teal-400 mr-3" />} <h2 className="text-3xl md:text-4xl font-bold futuristic-gradient-text">Kenntnisse & Fähigkeiten</h2> </div>
-                    <div className="mb-10 max-w-xl mx-auto"> <input type="text" placeholder="Fähigkeiten oder Technologien suchen..." className="w-full p-4 bg-slate-700 border border-slate-600 rounded-lg text-slate-200 focus:ring-2 focus:ring-teal-500 focus:border-teal-500 outline-none transition-colors placeholder-slate-400" value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} /> </div>
-                    {filteredSkills.length > 0 ? ( <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8"> {filteredSkills.map((skillCat, index) => ( <motion.div key={skillCat.id} className="bg-slate-700/[.50] dark:bg-slate-700/[.30] p-6 rounded-lg shadow-lg transition-all duration-300 ease-in-out transform hover:scale-105 hover:shadow-xl hover:shadow-teal-500/20" custom={index} variants={cardVariants} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.3 }}> <h3 className="text-xl font-semibold text-teal-400 mb-4 flex items-center"> {renderSkillIcon(skillCat.iconName)} {skillCat.category} </h3> <div className="flex flex-wrap gap-2"> {skillCat.details.map((detail, i) => ( <span key={i} className="inline-block bg-slate-600 dark:bg-slate-500 rounded-full px-3 py-1 text-xs font-semibold text-slate-200 hover:bg-teal-600 transition-colors cursor-default">{detail}</span> ))} </div> </motion.div> ))} </div> ) : ( <p className="text-center text-slate-400 text-lg mt-8">Keine Fähigkeiten gefunden, die Ihrer Suche entsprechen.</p> )}
-                  </div>
-                </motion.section>
-              );
-            };
-
-            const EducationSection = () => (
-              <motion.section id="education" className="py-16 md:py-24 px-6 md:px-8 bg-slate-900" variants={sectionVariants} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.1 }}>
-                <div className="container mx-auto">
-                  <div className="flex items-center mb-12 justify-center"> {IconBookOpen && <IconBookOpen size={32} className="text-teal-400 mr-3" />} <h2 className="text-3xl md:text-4xl font-bold futuristic-gradient-text">Ausbildung & Weiterbildung</h2> </div>
-                  <div className="grid md:grid-cols-1 lg:grid-cols-2 gap-8">
-                    {cvData.education.map((edu, index) => ( <motion.div key={edu.id} className="bg-slate-800 p-6 rounded-lg shadow-xl hover:shadow-blue-500/20 transition-shadow duration-300 transform hover:-translate-y-1" custom={index} variants={cardVariants} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.3 }}> <h3 className="text-xl font-semibold text-blue-400 mb-1">{edu.degree}</h3> <p className="text-md text-slate-400 mb-1">{edu.institution} - {edu.location}</p> <p className="text-sm text-slate-500 mb-3">{edu.period}</p> {edu.focus && edu.focus.length > 0 && <div> <h4 className="text-sm font-semibold text-slate-300 mb-1">Schwerpunkte:</h4> <ul className="list-disc list-inside text-sm text-slate-300 space-y-1 pl-2"> {edu.focus.map((item, i) => <li key={i}>{item}</li>)} </ul> </div>} </motion.div> ))}
-                    {cvData.furtherEducation.map((edu, index) => ( <motion.div key={edu.id} className="bg-slate-800 p-6 rounded-lg shadow-xl hover:shadow-purple-500/20 transition-shadow duration-300 transform hover:-translate-y-1" custom={index + cvData.education.length} variants={cardVariants} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.3 }}> <h3 className="text-xl font-semibold text-purple-400 mb-1">{edu.course}</h3> <p className="text-sm text-slate-500 mb-3">{edu.period}</p> {edu.topics && edu.topics.length > 0 && <div> <h4 className="text-sm font-semibold text-slate-300 mb-1">Themen:</h4> <ul className="list-disc list-inside text-sm text-slate-300 space-y-1 pl-2"> {edu.topics.map((topic, i) => <li key={i}>{topic}</li>)} </ul> </div>} </motion.div> ))}
-                  </div>
+            <div class="day-toggle">
+                <button class="day-button" data-target="entrenamiento-domingo">
+                    Domingo: Descanso Total <span class="toggle-icon">+</span>
+                </button>
+                <div id="entrenamiento-domingo" class="day-content" style="display: none;">
+                    <div class="subsection">
+                        <h3>Detalles Domingo: Descanso Total</h3>
+                        <p><strong>Objetivo:</strong> Permitir la recuperación completa del sistema nervioso central, muscular y hormonal.</p>
+                        <p><strong>Actividades Clave:</strong></p>
+                        <ul>
+                            <li>Sueño de calidad: Priorizar 7-9 horas de sueño reparador.</li>
+                            <li>Relajación: Actividades que reduzcan el estrés (meditación, lectura, pasar tiempo en la naturaleza, hobbies tranquilos).</li>
+                            <li>Hidratación y nutrición adecuadas según el plan de comidas de descanso.</li>
+                            <li>Evitar entrenamientos intensos o actividades físicas extenuantes.</li>
+                        </ul>
+                        <p class="note">El descanso es fundamental para controlar el cortisol, favorecer la pérdida de grasa, la reparación muscular y prevenir el sobreentrenamiento.</p>
+                    </div>
                 </div>
-              </motion.section>
-            );
+            </div>
 
-            const LanguagesSection = () => (
-              <motion.section id="languages" className="py-16 md:py-24 px-6 md:px-8 bg-slate-800" variants={sectionVariants} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.1 }}>
-                <div className="container mx-auto">
-                  <div className="flex items-center mb-12 justify-center"> {IconLanguages && <IconLanguages size={32} className="text-teal-400 mr-3" />} <h2 className="text-3xl md:text-4xl font-bold futuristic-gradient-text">Sprachen</h2> </div>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 md:gap-8 max-w-4xl mx-auto">
-                    {cvData.languages.map((lang, index) => ( <motion.div key={lang.id} className="bg-slate-700/[.50] dark:bg-slate-700/[.30] p-6 rounded-lg shadow-lg text-center transform transition-all hover:scale-105 hover:shadow-teal-500/20" custom={index} variants={cardVariants} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.3 }}> <h3 className="text-2xl font-semibold text-teal-300 mb-2">{lang.lang}</h3> <p className="text-lg text-slate-400">{lang.level}</p> </motion.div> ))}
-                  </div>
+
+            <div class="subsection" style="margin-top: 30px;"> <h3>Fundamento Científico del Entrenamiento</h3>
+                <p>Este protocolo combina entrenamiento de fuerza pesado y cardio/HIIT estratégico. La carga mecánica pesada mantiene la síntesis muscular y fuerza, mientras que el cardio intenso incrementa el gasto calórico y mejora la capacidad metabólica. La clave es manejar la "interferencia" separando en días distintos o haciendo cardio después de la fuerza. Estudios sugieren que usar HIIT de carrera en un plan concurrente reduce la interferencia comparado con cardio continuo.</p>
+            </div>
+
+        </section>
+
+        <section id="plan-comidas-section" class="main-section">
+            <h2>Plan de Comidas Semanal</h2>
+            <div class="subsection"> <h3>Lineamientos Generales de la Dieta (~2525 kcal/día)</h3>
+                <p>Dieta hipocalórica moderada (~15% por debajo del TDEE) para pérdida de grasa sostenible sin sacrificar músculo. Se espera perder ~0.5-1% de peso corporal por semana.</p>
+                <ul>
+                    <li><strong>Proteína:</strong> $\ge2.2 \text{ g/kg}$ de peso (~180 g diarios). Repartir en 4-5 comidas.</li>
+                    <li><strong>Carbohidratos:</strong> ~40-45% de las calorías. Días de entreno intenso: ~270-300 g. Días de descanso: ~230-250 g. Priorizar complejos y con fibra.</li>
+                    <li><strong>Grasas:</strong> ~25-30% de calorías (~65-80 g diarios). Fuentes saludables. No bajar de ~0.8 g/kg.</li>
+                    <li><strong>"Toques" veganos:</strong> 1-2 comidas vegetales al día.</li>
+                    <li><strong>Facilidad y preparación:</strong> Recetas $\le40$ minutos. Cocinar en lote.</li>
+                    <li><strong>Ingestas:</strong> 5 diarias. En días sin entreno, pre y post como snacks.</li>
+                </ul>
+            </div>
+
+            <div class="day-toggle">
+                <button class="day-button" data-target="comidas-lunes">
+                    Lunes: ~2600 kcal (Entreno Fuerza Superior) <span class="toggle-icon">+</span>
+                </button>
+                <div id="comidas-lunes" class="day-content" style="display: none;">
+                    <div class="meal-day-card"> <h4>Plan de Comidas Lunes</h4>
+                        <table>
+                            <thead><tr><th>Comida</th><th>Menú (ejemplo)</th><th>Calorías</th><th>Proteína (g)</th><th>Carbs (g)</th><th>Grasas (g)</th></tr></thead>
+                            <tbody>
+                                <tr><td>Desayuno</td><td>Overnight oats: avena (60g), leche almendra, proteína vegana (30g), arándanos (50g), nueces (15g).</td><td>600</td><td>40</td><td>68</td><td>18</td></tr>
+                                <tr><td>Comida</td><td>Ensalada quinoa (120g cocida), pollo plancha (150g), garbanzos (50g), espinacas, tomate, aliño oliva.</td><td>680</td><td>55</td><td>65</td><td>20</td></tr>
+                                <tr><td>Pre-entreno</td><td>Manzana mediana + 2 cdas mantequilla cacahuete.</td><td>300</td><td>8</td><td>32</td><td>16</td></tr>
+                                <tr><td>Post-entreno</td><td>Batido Whey (30g) + plátano. (Alt: proteína vegana).</td><td>280</td><td>25</td><td>34</td><td>3</td></tr>
+                                <tr><td>Cena</td><td>Salmón horno (180g), espárragos, patata asada (200g), ensalada.</td><td>740</td><td>45</td><td>60</td><td>30</td></tr>
+                                <tr><td><strong>Total día</strong></td><td></td><td><strong>2600</strong></td><td><strong>180</strong></td><td><strong>259</strong></td><td><strong>87</strong></td></tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
-              </motion.section>
-            );
+            </div>
 
-            const ContactSection = () => (
-              <motion.section id="contact" className="py-16 md:py-24 px-6 md:px-8 bg-slate-900" variants={sectionVariants} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.1 }}>
-                <div className="container mx-auto text-center">
-                  <div className="flex items-center mb-12 justify-center"> {IconMessageSquare && <IconMessageSquare size={32} className="text-teal-400 mr-3" />} <h2 className="text-3xl md:text-4xl font-bold futuristic-gradient-text">Kontakt</h2> </div>
-                  <p className="text-lg text-slate-400 mb-10 max-w-xl mx-auto"> Ich freue mich darauf, von Ihnen zu hören! Zögern Sie nicht, mich bei Fragen oder Möglichkeiten zu kontaktieren. </p>
-                  <div className="space-y-6 max-w-md mx-auto">
-                    {[ { type: 'email', href: `mailto:${cvData.contact.email}`, text: cvData.contact.email, icon: IconMail }, { type: 'phone', text: cvData.contact.phone, icon: IconPhone }, { type: 'linkedin', href: cvData.contact.linkedinFullUrl, text: cvData.contact.linkedin, icon: IconLinkedin, external: true }, { type: 'address', text: cvData.contact.address, icon: IconMapPin } ].map((item, index) => ( <motion.a key={item.type} href={item.href} target={item.external ? "_blank" : undefined} rel={item.external ? "noopener noreferrer" : undefined} className={`flex items-center justify-center p-4 bg-slate-800 rounded-lg ${item.href ? 'hover:bg-slate-700 transition-colors group' : 'cursor-default'}`} custom={index} variants={cardVariants} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.3 }}> {item.icon && <item.icon size={24} className="text-teal-400 mr-4 group-hover:text-teal-300" />} <span className="text-lg text-slate-200 group-hover:text-white">{item.text}</span> {item.external && IconExternalLink && <IconExternalLink size={18} className="text-slate-500 ml-2 group-hover:text-teal-300" />} </motion.a> ))}
-                  </div>
+            <div class="day-toggle">
+                <button class="day-button" data-target="comidas-martes">
+                    Martes: ~2400-2600 kcal (Entreno Fuerza Inferior) <span class="toggle-icon">+</span>
+                </button>
+                <div id="comidas-martes" class="day-content" style="display: none;">
+                     <div class="meal-day-card">
+                        <h4>Plan de Comidas Martes</h4>
+                        <table>
+                            <thead><tr><th>Comida</th><th>Menú (ejemplo)</th><th>Calorías</th><th>Proteína (g)</th><th>Carbs (g)</th><th>Grasas (g)</th></tr></thead>
+                            <tbody>
+                                <tr><td>Desayuno</td><td>Tortilla: 3 huevos (1 yema, 3 claras), espinacas, champiñones; 2 pan integral tostado, aguacate (50g).</td><td>550</td><td>35</td><td>40</td><td>25</td></tr>
+                                <tr><td>Comida</td><td>Tacos lechuga: ternera magra (150g), frijoles negros (100g), maíz, tex-mex; guacamole ligero.</td><td>700</td><td>50</td><td>50</td><td>35</td></tr>
+                                <tr><td>Pre-entreno</td><td>Yogur griego 0% (150g), miel (10g), fresas (100g).</td><td>180</td><td>15</td><td>20</td><td>2</td></tr>
+                                <tr><td>Post-entreno</td><td>Batido: 250ml leche desnatada, 1 scoop whey (30g), cacao puro, hielo.</td><td>300</td><td>32</td><td>25</td><td>7</td></tr>
+                                <tr><td>Cena</td><td>Salteado vegano: tofu (150g) marinado, brócoli, pimiento, zanahoria; arroz integral (120g cocido).</td><td>670</td><td>38</td><td>70</td><td>22</td></tr>
+                                <tr><td><strong>Total día</strong></td><td>(Aprox. 2400 kcal si entreno temprano)</td><td><strong>2400</strong></td><td><strong>170</strong></td><td><strong>205</strong></td><td><strong>91</strong></td></tr>
+                            </tbody>
+                        </table>
+                        <p class="note">La cena es vegana.</p>
+                    </div>
                 </div>
-              </motion.section>
-            );
+            </div>
 
-            const Footer = () => (
-              <footer className="py-8 bg-slate-800 border-t border-slate-700 text-center">
-                <div className="container mx-auto">
-                  <div className="flex justify-center space-x-6 mb-4">
-                    <a href={cvData.contact.linkedinFullUrl} target="_blank" rel="noopener noreferrer" title="LinkedIn Profil" className="text-slate-400 hover:text-teal-400 transition-colors"> {IconLinkedin && <IconLinkedin size={28} />} </a>
-                    {/* Enlace actualizado para el CV, target="_blank" para abrir en nueva pestaña */}
-                    <a href={CV_FILE_PATH} target="_blank" rel="noopener noreferrer" download="Lebenslauf_Jose_Carlos_Martin_Lache.pdf" title="CV Herunterladen" className="text-slate-400 hover:text-teal-400 transition-colors"> {IconDownload && <IconDownload size={28} />} </a>
-                  </div>
-                  <p className="text-slate-500 text-sm"> &copy; {new Date().getFullYear()} {cvData.name}. Alle Rechte vorbehalten. </p>
-                  <p className="text-xs text-slate-600 mt-2"> Inspiriert von modernen Entwickler-Portfolios. Erstellt mit React & Tailwind CSS. </p>
+            <div class="day-toggle">
+                <button class="day-button" data-target="comidas-miercoles">
+                    Miércoles: ~2400 kcal (Descanso / Cardio Suave) <span class="toggle-icon">+</span>
+                </button>
+                <div id="comidas-miercoles" class="day-content" style="display: none;">
+                    <div class="meal-day-card">
+                        <h4>Plan de Comidas Miércoles</h4>
+                        <table>
+                            <thead><tr><th>Comida</th><th>Menú (ejemplo)</th><th>Calorías</th><th>Proteína (g)</th><th>Carbs (g)</th><th>Grasas (g)</th></tr></thead>
+                            <tbody>
+                                <tr><td>Desayuno</td><td>Smoothie verde: proteína vegana (30g), espinaca, plátano, crema cacahuete, leche avena (200ml).</td><td>450</td><td>32</td><td>45</td><td>15</td></tr>
+                                <tr><td>Comida</td><td>Lentejas guisadas (200g cocidas), verduras, tofu desmigado (100g); arroz integral (100g cocido).</td><td>700</td><td>35</td><td>90</td><td>15</td></tr>
+                                <tr><td>Snack 1</td><td>Puñado nueces mixtas (30g) + 1 mandarina.</td><td>200</td><td>5</td><td>15</td><td>14</td></tr>
+                                <tr><td>Snack 2</td><td>Batido caseína (25g), cacao, hielo.</td><td>160</td><td>20</td><td>8</td><td>3</td></tr>
+                                <tr><td>Cena</td><td>Poke bowl: arroz blanco (150g), atún plancha (160g), edamame (100g), aguacate (70g), pepino, nori.</td><td>800</td><td>55</td><td>80</td><td>28</td></tr>
+                                <tr><td><strong>Total día</strong></td><td></td><td><strong>2360</strong></td><td><strong>147</strong></td><td><strong>238</strong></td><td><strong>75</strong></td></tr>
+                            </tbody>
+                        </table>
+                        <p class="note">Énfasis en vegetales (~2 comidas veganas). Cena con pescado magro.</p>
+                    </div>
                 </div>
-              </footer>
-            );
+            </div>
 
-            const App = () => {
-              const [scriptsReady, setScriptsReady] = useState(false);
+            <div class="day-toggle">
+                <button class="day-button" data-target="comidas-jueves">
+                    Jueves: ~2550 kcal (Entreno Metabólico Superior) <span class="toggle-icon">+</span>
+                </button>
+                <div id="comidas-jueves" class="day-content" style="display: none;">
+                    <div class="meal-day-card">
+                        <h4>Plan de Comidas Jueves</h4>
+                        <table>
+                            <thead><tr><th>Comida</th><th>Menú (ejemplo)</th><th>Calorías</th><th>Proteína (g)</th><th>Carbs (g)</th><th>Grasas (g)</th></tr></thead>
+                            <tbody>
+                                <tr><td>Desayuno</td><td>Gachas avena (50g), leche desnatada (250ml), whey (30g), canela, arándanos (40g), almendras (10g).</td><td>520</td><td>35</td><td>60</td><td>15</td></tr>
+                                <tr><td>Comida</td><td>Pasta integral (80g seca), salsa tomate, soja texturizada (80g), verduras. Levadura nutricional.</td><td>690</td><td>38</td><td>90</td><td>15</td></tr>
+                                <tr><td>Pre-entreno</td><td>Dátiles (3 uds) rellenos crema almendra + espresso.</td><td>200</td><td>3</td><td>36</td><td>6</td></tr>
+                                <tr><td>Post-entreno</td><td>Leche chocolateada baja grasa (250ml) + proteína polvo (20g).</td><td>300</td><td>22</td><td>40</td><td>6</td></tr>
+                                <tr><td>Cena</td><td>Pollo salteado asiático: pollo (140g), brócoli, pimiento, anacardos (15g), salsa soja. Fideos arroz (60g).</td><td>840</td><td>55</td><td>85</td><td>25</td></tr>
+                                <tr><td><strong>Total día</strong></td><td></td><td><strong>2550</strong></td><td><strong>153</strong></td><td><strong>311</strong></td><td><strong>67</strong></td></tr>
+                            </tbody>
+                        </table>
+                        <p class="note">Almuerzo 100% vegetal. Pre-entreno con azúcares rápidos.</p>
+                    </div>
+                </div>
+            </div>
 
-              useEffect(() => {
-                // Intentar inicializar los iconos inmediatamente
-                if (typeof window.lucideReact !== 'undefined') {
-                    initializeIcons();
-                } else {
-                    const lucideTimer = setTimeout(() => {
-                        if (typeof window.lucideReact !== 'undefined') {
-                            initializeIcons();
-                            setScriptsReady(prev => !prev); // Forzar re-render para que los iconos se muestren
-                        } else {
-                            console.error("Lucide-react no se cargó a tiempo.");
+            <div class="day-toggle">
+                <button class="day-button" data-target="comidas-viernes">
+                    Viernes: ~2550 kcal (Entreno Metabólico Inferior) <span class="toggle-icon">+</span>
+                </button>
+                <div id="comidas-viernes" class="day-content" style="display: none;">
+                    <div class="meal-day-card">
+                        <h4>Plan de Comidas Viernes</h4>
+                        <table>
+                            <thead><tr><th>Comida</th><th>Menú (ejemplo)</th><th>Calorías</th><th>Proteína (g)</th><th>Carbs (g)</th><th>Grasas (g)</th></tr></thead>
+                            <tbody>
+                                <tr><td>Desayuno</td><td>Panqueques proteína: avena (40g), 2 claras+1 huevo, proteína (20g). Topping: yogur griego, frutos rojos.</td><td>550</td><td>40</td><td>50</td><td>18</td></tr>
+                                <tr><td>Comida</td><td>Buddha bowl vegano: arroz integral (100g), espinacas; garbanzos asados (120g); calabaza; brócoli; aderezo tahini.</td><td>640</td><td>22</td><td>85</td><td>20</td></tr>
+                                <tr><td>Pre-entreno</td><td>Barrita proteica casera/comercial (~200 kcal).</td><td>220</td><td>15</td><td>20</td><td>8</td></tr>
+                                <tr><td>Post-entreno</td><td>Batido: leche desnatada (200ml), whey (20g), mango, espinacas, chía.</td><td>300</td><td>20</td><td>35</td><td>6</td></tr>
+                                <tr><td>Cena</td><td>Hamburguesa "fit": carne magra (150g) pan integral. Guarnición: patata horno (150g), zanahoria.</td><td>840</td><td>50</td><td>80</td><td>30</td></tr>
+                                <tr><td><strong>Total día</strong></td><td></td><td><strong>2550</strong></td><td><strong>147</strong></td><td><strong>270</strong></td><td><strong>82</strong></td></tr>
+                            </tbody>
+                        </table>
+                        <p class="note">Almuerzo vegano. Cena con carne roja magra.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="day-toggle">
+                <button class="day-button" data-target="comidas-sabado">
+                    Sábado: ~2600 kcal (Entreno HIIT Exterior) <span class="toggle-icon">+</span>
+                </button>
+                <div id="comidas-sabado" class="day-content" style="display: none;">
+                    <div class="meal-day-card">
+                        <h4>Plan de Comidas Sábado</h4>
+                        <table>
+                            <thead><tr><th>Comida</th><th>Menú (ejemplo)</th><th>Calorías</th><th>Proteína (g)</th><th>Carbs (g)</th><th>Grasas (g)</th></tr></thead>
+                            <tbody>
+                                <tr><td>Desayuno (pre-HIIT)</td><td>Porridge: avena instant (40g), plátano, miel, canela. Café/té.</td><td>360</td><td>8</td><td>75</td><td>4</td></tr>
+                                <tr><td>Post-HIIT (brunch)</td><td>Omelette: 2 huevos+2 claras, espinacas, pavo (50g); tostada integral; naranja.</td><td>600</td><td>35</td><td>50</td><td>25</td></tr>
+                                <tr><td>Comida</td><td>Wok: camarones (150g), tofu (100g), fideos arroz (70g), verduras, salsa soja.</td><td>720</td><td>45</td><td>90</td><td>15</td></tr>
+                                <tr><td>Merienda</td><td>Smoothie: leche semidesnatada (200ml), fresas, plátano, avena (20g), proteína (20g opc).</td><td>300</td><td>18</td><td>40</td><td>6</td></tr>
+                                <tr><td>Cena</td><td>Pizza saludable casera: base integral; pollo (120g), mozzarella light (50g), verduras. Ensalada.</td><td>620</td><td>45</td><td>60</td><td>20</td></tr>
+                                <tr><td><strong>Total día</strong></td><td></td><td><strong>2600</strong></td><td><strong>151</strong></td><td><strong>315</strong></td><td><strong>70</strong></td></tr>
+                            </tbody>
+                        </table>
+                        <p class="note">Desayuno ligero pre-HIIT. Brunch post-HIIT. Cena "libre" adaptada.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="day-toggle">
+                <button class="day-button" data-target="comidas-domingo">
+                    Domingo: ~2100-2400 kcal (Descanso) <span class="toggle-icon">+</span>
+                </button>
+                <div id="comidas-domingo" class="day-content" style="display: none;">
+                    <div class="meal-day-card">
+                        <h4>Plan de Comidas Domingo</h4>
+                        <table>
+                            <thead><tr><th>Comida</th><th>Menú (ejemplo)</th><th>Calorías</th><th>Proteína (g)</th><th>Carbs (g)</th><th>Grasas (g)</th></tr></thead>
+                            <tbody>
+                                <tr><td>Desayuno</td><td>Pudding chía: chía (30g), bebida almendras (200ml), proteína vegana (20g); frutos bosque.</td><td>420</td><td>22</td><td>30</td><td>20</td></tr>
+                                <tr><td>Comida</td><td>Paella integral: pollo (150g), arroz integral (60g crudo), verduras. Ensalada.</td><td>650</td><td>45</td><td>70</td><td>18</td></tr>
+                                <tr><td>Snack tarde</td><td>Queso quark 0% (200g), arándanos, miel.</td><td>180</td><td>22</td><td>15</td><td>0</td></tr>
+                                <tr><td>Cena</td><td>Crema verduras; Merluza plancha (180g); boniato asado (150g).</td><td>750</td><td>50</td><td>60</td><td>20</td></tr>
+                                <tr><td>Refrigerio nocturno</td><td>Chocolate negro 85% (20g).</td><td>120</td><td>2</td><td>5</td><td>10</td></tr>
+                                <tr><td><strong>Total día</strong></td><td>(Aprox. 2120 kcal)</td><td><strong>2120</strong></td><td><strong>141</strong></td><td><strong>180</strong></td><td><strong>68</strong></td></tr>
+                            </tbody>
+                        </table>
+                        <p class="note">Día bajo en carbohidratos. Proteínas altas. Cena ligera.</p>
+                    </div>
+                </div>
+            </div>
+            <p class="note" style="margin-top:30px;"><strong>Nota final sobre la dieta:</strong> Abundantes micronutrientes y fibra (~30-40 g/día). Hidratarse bien y limitar alcohol.</p>
+        </section>
+
+        <section id="recomendaciones-section" class="main-section">
+            <h2>Recomendaciones y Tips Adicionales</h2>
+            
+            <div class="subsection">
+                <h3>Suplementos Recomendados (Disponibles en Alemania)</h3>
+                <ul>
+                    <li><strong>Creatina monohidratada:</strong> 5 g diarios. Ayuda a mantener rendimiento y masa muscular en déficit. Fase de carga opcional.</li>
+                    <li><strong>Proteína en polvo (Whey o vegana):</strong> Para alcanzar cuota proteica. Whey post-entreno (rápida absorción). Vegana (mezcla guisante+arroz) en otros momentos.</li>
+                    <li><strong>Cafeína:</strong> $3-6 \text{ mg/kg}$ antes del entreno (30-45 min pre-ejercicio). Mejora rendimiento y oxidación de grasas. Evitar tarde.</li>
+                    <li><strong>Omega-3 (EPA+DHA):</strong> ~2000 mg diarios de EPA+DHA combinados. Beneficios antiinflamatorios y preservación muscular.</li>
+                    <li><strong>Vitamina D3:</strong> 1500-2000 UI/día con comida con grasa, especialmente en meses de poco sol. Analítica para ajustar dosis.</li>
+                </ul>
+                <h4>Opcionales:</h4>
+                <ul>
+                    <li><strong>Beta-Alanina:</strong> ~4-6 g/día divididos. Puede ayudar en entrenos HIIT/metabólicos.</li>
+                    <li><strong>Multivitamínico:</strong> Como "red de seguridad" en déficit calórico.</li>
+                    <li><strong>Protector articular:</strong> Colágeno hidrolizado o glucosamina/condroitina si hay molestias.</li>
+                    <li><strong>Té verde / EGCG:</strong> Podría aumentar ligeramente gasto calórico y oxidación de grasas.</li>
+                </ul>
+                <p class="note"><strong>Resumen suplementos:</strong> Obligatorios: Proteína, Creatina, Omega-3, Vitamina D. Ergogénico clave: Cafeína.</p>
+            </div>
+
+            <div class="subsection">
+                <h3>Tips Generales de Entrenamiento</h3>
+                <ul>
+                    <li>Realizar el cardio después de las pesas o en días separados para minimizar interferencias.</li>
+                    <li>No subestimar la importancia de 1-2 días de descanso completos a la semana.</li>
+                    <li>Priorizar la técnica correcta en todos los ejercicios y buscar la sobrecarga progresiva.</li>
+                    <li>En los circuitos metabólicos, mantener una buena técnica incluso cuando aparezca la fatiga.</li>
+                    <li>Ajustar el volumen del entrenamiento HIIT (número de sprints o rondas) según el nivel de condición física.</li>
+                </ul>
+            </div>
+
+            <div class="subsection">
+                <h3>Tips Generales de Dieta</h3>
+                <ul>
+                    <li>El objetivo es una pérdida de peso de ~0.5-1% del peso corporal por semana.</li>
+                    <li>Distribuir la ingesta de proteínas en 4-5 comidas a lo largo del día para maximizar la síntesis proteica.</li>
+                    <li>Priorizar carbohidratos complejos y ricos en fibra para mayor saciedad y energía sostenida.</li>
+                    <li>Cocinar en lote algunas preparaciones (pollo, quinoa, arroz) puede ahorrar tiempo durante la semana.</li>
+                    <li>Mantener una buena hidratación (agua, infusiones) y limitar el consumo de alcohol.</li>
+                </ul>
+            </div>
+            
+            <div class="subsection">
+                <h3>Conclusión y Expectativas</h3>
+                <p>Siguiendo este protocolo, se crea un entorno para la pérdida de grasa acelerada manteniendo masa muscular. Es posible perder ~0.5-0.7 kg de grasa por semana. En 12 semanas, se podría pasar del 21% al 15% de grasa corporal. El peso objetivo de 78-80 kg es realista, compensando pérdida de grasa con posible ganancia de masa magra.</p>
+                <h4>¿Por qué funciona?</h4>
+                <ul>
+                    <li>Fuerza pesada: preserva masa magra.</li>
+                    <li>Cardio HIIT y metabólico: maximizan quema de calorías y previenen pérdida muscular.</li>
+                    <li>Proteína elevada: minimiza catabolismo y mejora saciedad.</li>
+                    <li>Tasa de pérdida moderada: evita hambre extrema y bajadas de rendimiento.</li>
+                    <li>Suplementos: cubren brechas y dan plus de rendimiento/recuperación.</li>
+                </ul>
+                <p class="note">El plan es realista y sostenible, permitiendo flexibilidad. Con consistencia, el objetivo de 14-15% de grasa corporal manteniendo ~80 kg de masa muscular es alcanzable.</p>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Protocolo Integral. Contenido adaptado del PDF proporcionado.</p>
+        <p>Recuerda consultar con un profesional de la salud o entrenador personal antes de iniciar cualquier nuevo plan de entrenamiento o dieta.</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const dayButtons = document.querySelectorAll('.day-button');
+            dayButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const targetId = button.getAttribute('data-target');
+                    const targetContent = document.getElementById(targetId);
+                    const icon = button.querySelector('.toggle-icon');
+
+                    if (targetContent) {
+                        // Cierra todos los demás contenidos abiertos en la misma sección principal
+                        const parentSection = button.closest('.main-section');
+                        if (parentSection) {
+                            const allButtonsInParent = parentSection.querySelectorAll('.day-button');
+                            allButtonsInParent.forEach(otherButton => {
+                                if (otherButton !== button) {
+                                    const otherTargetId = otherButton.getAttribute('data-target');
+                                    const otherTargetContent = document.getElementById(otherTargetId);
+                                    const otherIcon = otherButton.querySelector('.toggle-icon');
+                                    if (otherTargetContent && otherTargetContent.style.display === 'block') {
+                                        otherTargetContent.style.display = 'none';
+                                        otherButton.classList.remove('active');
+                                        if (otherIcon) otherIcon.textContent = '+';
+                                    }
+                                }
+                            });
                         }
-                    }, 500);
-                    return () => clearTimeout(lucideTimer);
-                }
-              }, []);
-              
-              return (
-                <React.Fragment>
-                  <Navbar />
-                  <main className="flex-grow">
-                    <HeroSection />
-                    <AboutSection />
-                    <ExperienceSection />
-                    <SkillsSection />
-                    <EducationSection />
-                    <LanguagesSection />
-                    <ContactSection />
-                  </main>
-                  <Footer />
-                </React.Fragment>
-              );
-            };
-            
-            const rootElement = document.getElementById('root');
-            if (rootElement) {
-                rootElement.className = "bg-slate-900 text-slate-100 antialiased min-h-screen flex flex-col";
-                ReactDOM.createRoot(rootElement).render(<App />);
-            } else {
-                console.error("Root element not found.");
-            }
-        }
+                        
+                        // Abre o cierra el contenido actual
+                        if (targetContent.style.display === 'none' || targetContent.style.display === '') {
+                            targetContent.style.display = 'block';
+                            button.classList.add('active');
+                            if (icon) icon.textContent = '−'; // Signo menos para abierto
+                        } else {
+                            targetContent.style.display = 'none';
+                            button.classList.remove('active');
+                            if (icon) icon.textContent = '+'; // Signo más para cerrado
+                        }
+                    }
+                });
+            });
+        });
     </script>
+
 </body>
 </html>
