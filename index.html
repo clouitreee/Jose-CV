@@ -1,844 +1,459 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Protocolo Integral: Reducir Grasa Sin Perder Músculo</title>
-    <style>
-        /* Estilos Generales */
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #1e1e1e; /* Muy oscuro */
-            color: #e0e0e0; /* Texto claro */
-            line-height: 1.6;
-        }
+import React, { useState, useEffect, useMemo } from 'react';
+import { 
+  Shield, 
+  AlertTriangle, 
+  Activity, 
+  Eye, 
+  Lock, 
+  Unlock, 
+  Globe, 
+  Cpu, 
+  Server, 
+  Users, 
+  TrendingUp, 
+  TrendingDown,
+  Zap,
+  Wifi,
+  HardDrive,
+  Clock,
+  MapPin,
+  Search,
+  Filter,
+  RefreshCw,
+  Settings,
+  Bell,
+  X,
+  ChevronDown,
+  ChevronUp
+} from 'lucide-react';
 
-        /* Encabezado */
-        header {
-            background-color: #004d40; /* Verde oscuro azulado para el header */
-            color: #ffffff;
-            padding: 20px 40px;
-            text-align: center;
-            border-bottom: 4px solid #00796b; /* Un verde más brillante para acento */
-            position: sticky; /* Para que el header se quede fijo al hacer scroll */
-            top: 0;
-            z-index: 1000; /* Asegura que el header esté sobre otros elementos */
-        }
+const CybersecuritySIEM = () => {
+  const [currentTime, setCurrentTime] = useState(new Date());
+  const [selectedTimeRange, setSelectedTimeRange] = useState('24h');
+  const [activeTab, setActiveTab] = useState('overview');
+  const [searchTerm, setSearchTerm] = useState('');
+  const [filterOpen, setFilterOpen] = useState(false);
+  const [notifications, setNotifications] = useState([]);
+  const [refreshing, setRefreshing] = useState(false);
 
-        header h1 {
-            margin: 0;
-            font-size: 2.2em;
-        }
+  // Mock data generation
+  const generateMockData = () => {
+    const severityLevels = ['Critical', 'High', 'Medium', 'Low'];
+    const eventTypes = ['Malware Detection', 'Intrusion Attempt', 'DDoS Attack', 'Data Breach', 'Unauthorized Access', 'Phishing', 'Suspicious Activity'];
+    const sources = ['Firewall', 'IDS/IPS', 'Endpoint Protection', 'Web Gateway', 'Email Security', 'Network Monitor'];
+    const countries = ['USA', 'China', 'Russia', 'Germany', 'Brazil', 'India', 'Japan', 'UK'];
+    
+    return Array.from({ length: 50 }, (_, i) => ({
+      id: i + 1,
+      timestamp: new Date(Date.now() - Math.random() * 86400000 * 7).toISOString(),
+      severity: severityLevels[Math.floor(Math.random() * severityLevels.length)],
+      eventType: eventTypes[Math.floor(Math.random() * eventTypes.length)],
+      source: sources[Math.floor(Math.random() * sources.length)],
+      sourceIP: `${Math.floor(Math.random() * 256)}.${Math.floor(Math.random() * 256)}.${Math.floor(Math.random() * 256)}.${Math.floor(Math.random() * 256)}`,
+      targetIP: `192.168.${Math.floor(Math.random() * 256)}.${Math.floor(Math.random() * 256)}`,
+      country: countries[Math.floor(Math.random() * countries.length)],
+      description: `Detected suspicious activity from external source targeting internal systems`,
+      status: Math.random() > 0.3 ? 'Resolved' : 'Active'
+    }));
+  };
 
-        header .subtitle {
-            margin: 5px 0 0;
-            font-size: 1.1em;
-            font-style: italic;
-            color: #b2dfdb; /* Verde claro para el subtítulo */
-        }
+  const [securityEvents] = useState(generateMockData());
 
-        header nav {
-            margin-top: 15px;
-        }
+  // Real-time clock
+  useEffect(() => {
+    const timer = setInterval(() => setCurrentTime(new Date()), 1000);
+    return () => clearInterval(timer);
+  }, []);
 
-        header nav a {
-            color: #b2dfdb; /* Verde claro para enlaces de navegación */
-            margin: 0 15px;
-            text-decoration: none;
-            font-weight: bold;
-            font-size: 1em;
-            padding: 5px 10px;
-            border-radius: 4px;
-            transition: background-color 0.3s, color 0.3s;
-        }
+  // Simulate real-time notifications
+  useEffect(() => {
+    const interval = setInterval(() => {
+      if (Math.random() > 0.7) {
+        const newNotification = {
+          id: Date.now(),
+          message: 'New security threat detected',
+          severity: ['Critical', 'High', 'Medium'][Math.floor(Math.random() * 3)],
+          timestamp: new Date()
+        };
+        setNotifications(prev => [newNotification, ...prev.slice(0, 4)]);
+      }
+    }, 5000);
+    return () => clearInterval(interval);
+  }, []);
 
-        header nav a:hover {
-            color: #ffffff;
-            background-color: #00796b;
-            text-decoration: none;
-        }
-        
-        /* Contenedor Principal de Secciones */
-        main {
-            padding-top: 20px; /* Espacio para que el contenido no quede debajo del header fijo */
-        }
+  // Dashboard statistics
+  const dashboardStats = useMemo(() => {
+    const activeEvents = securityEvents.filter(e => e.status === 'Active');
+    const criticalEvents = securityEvents.filter(e => e.severity === 'Critical');
+    const last24h = securityEvents.filter(e => 
+      new Date() - new Date(e.timestamp) < 24 * 60 * 60 * 1000
+    );
 
-        .main-section {
-            background-color: #2c2c2c;
-            padding: 25px;
-            margin: 25px auto;
-            max-width: 1000px; /* Ancho máximo para las secciones principales */
-            border-radius: 8px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
-        }
+    return {
+      totalEvents: securityEvents.length,
+      activeThreats: activeEvents.length,
+      criticalAlerts: criticalEvents.length,
+      eventsLast24h: last24h.length,
+      threatLevel: criticalEvents.length > 5 ? 'High' : activeEvents.length > 10 ? 'Medium' : 'Low'
+    };
+  }, [securityEvents]);
 
-        .main-section h2 {
-            color: #009688; /* Verde brillante para títulos de sección */
-            border-bottom: 2px solid #00796b;
-            padding-bottom: 10px;
-            margin-top: 0;
-            font-size: 2em; /* Ligeramente más grande */
-            text-align: center; /* Centrar títulos de sección */
-            margin-bottom: 25px;
-        }
+  // Filter events based on search
+  const filteredEvents = useMemo(() => {
+    return securityEvents.filter(event =>
+      event.eventType.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      event.sourceIP.includes(searchTerm) ||
+      event.country.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+  }, [securityEvents, searchTerm]);
 
-        /* Estilos para Botones Desplegables de Día */
-        .day-toggle {
-            margin-bottom: 10px; /* Espacio entre botones de día */
-        }
+  const handleRefresh = () => {
+    setRefreshing(true);
+    setTimeout(() => setRefreshing(false), 1000);
+  };
 
-        .day-button {
-            background-color: #00695c; /* Verde oscuro para botones */
-            color: #ffffff;
-            border: none;
-            padding: 15px 20px; /* Más padding */
-            width: 100%;
-            text-align: left;
-            font-size: 1.25em; /* Ligeramente más grande */
-            font-weight: bold;
-            border-radius: 6px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-        }
+  const getSeverityColor = (severity) => {
+    switch (severity) {
+      case 'Critical': return 'text-red-400 bg-red-500/20 border-red-500/50';
+      case 'High': return 'text-orange-400 bg-orange-500/20 border-orange-500/50';
+      case 'Medium': return 'text-yellow-400 bg-yellow-500/20 border-yellow-500/50';
+      case 'Low': return 'text-green-400 bg-green-500/20 border-green-500/50';
+      default: return 'text-gray-400 bg-gray-500/20 border-gray-500/50';
+    }
+  };
 
-        .day-button:hover {
-            background-color: #00796b; /* Verde más claro al pasar el mouse */
-        }
-
-        .day-button.active {
-            background-color: #00897b; /* Color para botón activo/abierto */
-            border-bottom-left-radius: 0;
-            border-bottom-right-radius: 0;
-        }
-
-        .toggle-icon {
-            font-size: 1.3em; /* Icono más grande */
-            font-weight: bold;
-        }
-
-        /* Contenido Desplegable del Día */
-        .day-content {
-            background-color: #353535; /* Fondo para contenido desplegado */
-            padding: 20px;
-            border: 1px solid #00695c; /* Borde que coincide con el botón */
-            border-top: none; /* Sin doble borde con el botón */
-            border-radius: 0 0 6px 6px;
-            /* display: none; por defecto, controlado por JS */
-            animation: fadeIn 0.5s ease-in-out; /* Animación de entrada */
-        }
-        
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(-10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-
-        /* Estilos para Subsecciones dentro del contenido del día */
-        .day-content .subsection { /* Para mantener la estructura visual interna */
-            background-color: #3d3d3d; /* Ligeramente diferente para anidar */
-            border-left: 4px solid #00897b; /* Color de borde diferente para anidados */
-            margin-top: 15px;
-            margin-bottom: 15px;
-        }
-        .day-content .subsection:first-child {
-            margin-top: 0;
-        }
-
-        .day-content .subsection h3 {
-            color: #4db6ac;
-            font-size: 1.4em; /* Ajustar según sea necesario */
-        }
-        .day-content .subsection h4 {
-            color: #80cbc4;
-            font-size: 1.2em; /* Ajustar según sea necesario */
-        }
-        
-        /* Tarjetas de Comida (si se usan dentro de .day-content) */
-        .day-content .meal-day-card {
-            background-color: transparent; /* El fondo lo da .day-content */
-            border: none; /* Sin borde extra si está dentro de .day-content */
-            box-shadow: none; /* Sin sombra extra */
-            padding: 0; /* Sin padding extra */
-            margin-bottom: 0;
-        }
-        .day-content .meal-day-card h4 { /* Título de la tabla de comidas */
-             color: #4dd0e1; 
-             margin-top: 0;
-             border-bottom: 1px solid #00796b;
-             padding-bottom: 8px;
-             font-size: 1.3em; 
-             text-align: center;
-             margin-bottom: 15px;
-        }
-
-
-        /* Tablas */
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 15px;
-            font-size: 0.95em;
-        }
-
-        th, td {
-            border: 1px solid #4a4a4a;
-            padding: 10px;
-            text-align: left;
-        }
-
-        th {
-            background-color: #00695c;
-            color: #ffffff;
-            font-weight: bold;
-        }
-
-        tr:nth-child(even) {
-            background-color: #3a3a3a;
-        }
-        tr:hover {
-            background-color: #4f4f4f;
-        }
-        
-        /* Centrado de macros y kcal en tablas de comidas */
-        .day-content table td:last-child,
-        .day-content table th:last-child,
-        .day-content table td:nth-last-child(2),
-        .day-content table th:nth-last-child(2),
-        .day-content table td:nth-last-child(3),
-        .day-content table th:nth-last-child(3),
-        .day-content table td:nth-last-child(4),
-        .day-content table th:nth-last-child(4) {
-            text-align: center; 
-        }
-
-        /* Notas */
-        .note {
-            background-color: #424242;
-            border-left: 4px solid #009688;
-            padding: 12px;
-            margin-top: 15px;
-            border-radius: 4px;
-            font-style: italic;
-        }
-
-        /* Detalles de Ejercicios */
-        .exercise-details {
-            background-color: #383838;
-            border-left: 4px solid #4db6ac;
-            padding: 15px;
-            margin-top: 15px; /* Espacio antes del bloque de ejemplo */
-            margin-bottom: 20px;
-            border-radius: 6px;
-        }
-
-        .exercise-details h4 {
-            color: #80deea;
-            margin-top: 0;
-            font-size: 1.3em;
-        }
-        .exercise-details ul, .exercise-details ol {
-            margin-bottom: 0; /* Evitar doble margen si es el último elemento */
-        }
-
-
-        /* Pie de Página */
-        footer {
-            text-align: center;
-            padding: 20px;
-            background-color: #101010;
-            color: #757575;
-            margin-top: 30px;
-            font-size: 0.9em;
-        }
-
-        /* Ajustes Responsivos */
-        @media (max-width: 768px) {
-            header {
-                padding: 15px 20px;
-                position: static; /* En móvil, el header no es fijo para ahorrar espacio */
-            }
-            main {
-                padding-top: 0;
-            }
-
-            header h1 {
-                font-size: 1.8em;
-            }
-            header nav {
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-            }
-            header nav a {
-                font-size: 0.9em;
-                margin: 5px 0; /* Espacio vertical entre enlaces en móvil */
-                display: block;
-                width: 80%;
-            }
-
-            .main-section {
-                padding: 15px;
-                margin: 15px;
-            }
-            .main-section h2 {
-                font-size: 1.6em;
-            }
-            .day-button {
-                font-size: 1.1em;
-                padding: 12px 15px;
-            }
-             .day-content .subsection h3 {
-                font-size: 1.2em;
-            }
-            .day-content .subsection h4 {
-                font-size: 1.1em;
-            }
-            .exercise-details h4 {
-                 font-size: 1.15em;
-            }
-
-            table {
-                font-size: 0.85em; /* Tablas más pequeñas en móvil */
-            }
-            th, td {
-                padding: 8px;
-            }
-        }
-         @media (max-width: 480px) {
-            header h1 {
-                font-size: 1.5em;
-            }
-            header .subtitle {
-                font-size: 0.9em;
-            }
-            header nav a {
-                font-size: 0.85em;
-                padding: 8px;
-            }
-             .main-section h2 {
-                font-size: 1.4em;
-            }
-            .day-button {
-                font-size: 1em;
-            }
-        }
-    </style>
-</head>
-<body>
-
-    <header>
-        <h1>Protocolo Integral para Reducir Grasa Sin Perder Músculo</h1>
-        <p class="subtitle">(35 años, 81.6 kg, 21.2% GC)</p>
-        <nav>
-            <a href="#plan-entrenamiento-section">Plan de Entrenamiento</a>
-            <a href="#plan-comidas-section">Plan de Comidas</a>
-            <a href="#recomendaciones-section">Recomendaciones y Tips</a>
-        </nav>
-    </header>
-
-    <main>
-        <section id="plan-entrenamiento-section" class="main-section">
-            <h2>Plan de Entrenamiento</h2>
-
-            <div class="subsection"> <h3>Esquema Semanal (5 días híbrido: pesas + cardio)</h3>
-                <p>Gimnasio 4 días + 1 día exterior:</p>
-                <table>
-                    <thead><tr><th>Día</th><th>Entrenamiento</th><th>Enfoque principal (resumen)</th></tr></thead>
-                    <tbody>
-                        <tr><td>Lunes</td><td>Fuerza (tren superior)</td><td>Pesos libres pesados (compuestos). Rango 4-6 reps, RPE 8-9, descanso 2-3'. Retención de fuerza y masa muscular.</td></tr>
-                        <tr><td>Martes</td><td>Fuerza (tren inferior)</td><td>Ejercicios básicos de pierna (sentadilla, peso muerto, etc.) 4-6 reps, RPE 8-9, desc. 2-3'. Enfoque en potencia y sobrecarga progresiva.</td></tr>
-                        <tr><td>Miércoles</td><td>Descanso / Cardio ligero</td><td>Recuperación (ej. caminata 30-40′ o movilidad). Opcional cardio suave para circulación sin fatiga significativa.</td></tr>
-                        <tr><td>Jueves</td><td>Metabólico (tren superior)</td><td>Entrenamiento hipertrofia/metabólico (supersets/circuitos). 8-15 reps, RPE 7-8, desc. 60-90". Elevado ritmo cardíaco, "pump" muscular.</td></tr>
-                        <tr><td>Viernes</td><td>Metabólico (tren inferior)</td><td>Sesión metabólica piernas (ej. supersets de cuádriceps-femorales). 10-15 reps, RPE 7-8. Trabajo de resistencia muscular y quema extra de calorías.</td></tr>
-                        <tr><td>Sábado</td><td>Exterior (HIIT/full-body)</td><td>Entreno al aire libre intensivo: sprints, cuestas, circuito cuerpo completo (RPE alto ~9). Mejora cardiovascular sin perder músculo.</td></tr>
-                        <tr><td>Domingo</td><td>Descanso</td><td>Descanso total. Enfoque en recuperación muscular, sueño y relajación.</td></tr>
-                    </tbody>
-                </table>
-                <p class="note">Nota: Hacer el cardio después de las pesas (o en días separados) minimiza la interferencia en fuerza/masa. Mantener 1-2 días de descanso a la semana ayuda a la recuperación.</p>
+  const StatCard = ({ icon: Icon, title, value, change, color = 'cyan' }) => (
+    <div className="bg-gray-900/50 backdrop-blur-sm border border-gray-700/50 rounded-xl p-6 hover:bg-gray-800/50 transition-all duration-300 hover:scale-105">
+      <div className="flex items-center justify-between">
+        <div>
+          <p className="text-gray-400 text-sm font-medium">{title}</p>
+          <p className={`text-3xl font-bold text-${color}-400 mt-2`}>{value}</p>
+          {change && (
+            <div className="flex items-center mt-2">
+              {change > 0 ? <TrendingUp className="w-4 h-4 text-red-400" /> : <TrendingDown className="w-4 h-4 text-green-400" />}
+              <span className={`text-sm ml-1 ${change > 0 ? 'text-red-400' : 'text-green-400'}`}>
+                {Math.abs(change)}%
+              </span>
             </div>
+          )}
+        </div>
+        <Icon className={`w-12 h-12 text-${color}-400 opacity-80`} />
+      </div>
+    </div>
+  );
 
-            <div class="day-toggle">
-                <button class="day-button" data-target="entrenamiento-lunes">
-                    Lunes: Fuerza (Tren Superior) <span class="toggle-icon">+</span>
-                </button>
-                <div id="entrenamiento-lunes" class="day-content" style="display: none;">
-                    <div class="subsection">
-                        <h3>Detalles Entrenamiento Lunes: Fuerza (Tren Superior)</h3>
-                        <p><strong>Objetivo:</strong> Maximizar la tensión mecánica para mantener/ganar masa muscular y fuerza pese al déficit calórico.</p>
-                        <p><strong>Estructura:</strong> 4-5 ejercicios multiarticulares. Completar 3-5 series de ~4-6 repeticiones efectivas por ejercicio principal, RPE 8-9. Descansos amplios de 2-3 minutos.</p>
-                        <div class="exercise-details">
-                            <h4>Ejemplo de Rutina:</h4>
-                            <ul>
-                                <li>Press de banca con barra - $4 \times 5$ reps (RPE 8, 2.5' descanso)</li>
-                                <li>Dominadas lastradas - $4 \times 5$ reps (RPE 9 en última serie, 3' desc.)</li>
-                                <li>Press militar de pie - $3 \times 6$ reps (RPE 8, 2' desc.)</li>
-                                <li>Remo con barra - $3 \times 6$ reps (RPE 8, 2' desc.)</li>
-                                <li>Accesorios: Curl bíceps $3 \times 8-10$, Extensión triceps $3 \times 10$ (RPE ~8, descansos 60-90")</li>
-                            </ul>
-                        </div>
-                        <p><strong>Volumen semanal:</strong> Pecho/hombro/brazo se trabajan también el jueves. Priorizar técnica y sobrecarga progresiva.</p>
-                    </div>
-                </div>
-            </div>
+  const ThreatMap = () => (
+    <div className="bg-gray-900/50 backdrop-blur-sm border border-gray-700/50 rounded-xl p-6">
+      <h3 className="text-xl font-bold text-white mb-4 flex items-center">
+        <Globe className="w-5 h-5 mr-2 text-cyan-400" />
+        Global Threat Map
+      </h3>
+      <div className="relative h-64 bg-gray-800/30 rounded-lg overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-br from-blue-900/20 to-purple-900/20"></div>
+        {Array.from({ length: 20 }, (_, i) => (
+          <div
+            key={i}
+            className="absolute w-3 h-3 rounded-full animate-pulse"
+            style={{
+              left: `${Math.random() * 90}%`,
+              top: `${Math.random() * 80}%`,
+              backgroundColor: ['#ef4444', '#f97316', '#eab308'][Math.floor(Math.random() * 3)],
+              boxShadow: '0 0 20px currentColor'
+            }}
+          ></div>
+        ))}
+        <div className="absolute bottom-4 left-4 text-sm text-gray-400">
+          Real-time threat origins
+        </div>
+      </div>
+    </div>
+  );
 
-            <div class="day-toggle">
-                <button class="day-button" data-target="entrenamiento-martes">
-                    Martes: Fuerza (Tren Inferior) <span class="toggle-icon">+</span>
-                </button>
-                <div id="entrenamiento-martes" class="day-content" style="display: none;">
-                    <div class="subsection">
-                        <h3>Detalles Entrenamiento Martes: Fuerza (Tren Inferior)</h3>
-                        <p><strong>Objetivo:</strong> Similar al lunes, enfocado en el tren inferior.</p>
-                        <p><strong>Estructura:</strong> Ejercicios como sentadilla, peso muerto, hip thrust, prensa. 3-5 series de 4-6 reps, RPE 8-9, descanso 2-3'.</p>
-                         <div class="exercise-details">
-                            <h4>Ejemplo de Rutina (Orientativo):</h4>
-                            <ul>
-                                <li>Sentadilla con barra - $4 \times 5$ reps (RPE 8-9, 3' descanso)</li>
-                                <li>Peso muerto rumano - $3 \times 6-8$ reps (RPE 8, 2.5' descanso)</li>
-                                <li>Prensa de piernas - $3 \times 6-8$ reps (RPE 8, 2' descanso)</li>
-                                <li>Hip thrust con barra - $3 \times 8-10$ reps (RPE 8, 2' descanso)</li>
-                                <li>Extensiones de cuádriceps / Curl femoral (opcional) - $2-3 \times 10-12$ reps</li>
-                            </ul>
-                        </div>
-                        <p><strong>Volumen semanal:</strong> Piernas se trabajan también el viernes. Enfoque en potencia y sobrecarga progresiva.</p>
-                    </div>
-                </div>
+  const EventsTable = () => (
+    <div className="bg-gray-900/50 backdrop-blur-sm border border-gray-700/50 rounded-xl overflow-hidden">
+      <div className="p-6 border-b border-gray-700/50">
+        <h3 className="text-xl font-bold text-white flex items-center">
+          <Shield className="w-5 h-5 mr-2 text-cyan-400" />
+          Security Events
+        </h3>
+      </div>
+      <div className="overflow-x-auto">
+        <table className="w-full">
+          <thead className="bg-gray-800/50">
+            <tr>
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">Timestamp</th>
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">Severity</th>
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">Event Type</th>
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">Source IP</th>
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">Country</th>
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">Status</th>
+            </tr>
+          </thead>
+          <tbody className="divide-y divide-gray-700/50">
+            {filteredEvents.slice(0, 10).map((event) => (
+              <tr key={event.id} className="hover:bg-gray-800/30 transition-colors">
+                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-300">
+                  {new Date(event.timestamp).toLocaleString()}
+                </td>
+                <td className="px-6 py-4 whitespace-nowrap">
+                  <span className={`px-2 py-1 text-xs font-medium rounded-full border ${getSeverityColor(event.severity)}`}>
+                    {event.severity}
+                  </span>
+                </td>
+                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-300">{event.eventType}</td>
+                <td className="px-6 py-4 whitespace-nowrap text-sm font-mono text-cyan-400">{event.sourceIP}</td>
+                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-300">{event.country}</td>
+                <td className="px-6 py-4 whitespace-nowrap">
+                  <span className={`px-2 py-1 text-xs font-medium rounded-full ${
+                    event.status === 'Active' ? 'text-red-400 bg-red-500/20' : 'text-green-400 bg-green-500/20'
+                  }`}>
+                    {event.status}
+                  </span>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  );
+
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-blue-900 to-purple-900 text-white">
+      {/* Header */}
+      <header className="bg-gray-900/80 backdrop-blur-sm border-b border-gray-700/50 sticky top-0 z-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex items-center justify-between h-16">
+            <div className="flex items-center">
+              <Shield className="w-8 h-8 text-cyan-400 mr-3" />
+              <h1 className="text-2xl font-bold bg-gradient-to-r from-cyan-400 to-blue-400 bg-clip-text text-transparent">
+                CyberSIEM Pro
+              </h1>
             </div>
             
-            <div class="day-toggle">
-                <button class="day-button" data-target="entrenamiento-miercoles">
-                    Miércoles: Descanso / Cardio Ligero <span class="toggle-icon">+</span>
+            <div className="flex items-center space-x-4">
+              <div className="flex items-center space-x-2 text-sm text-gray-300">
+                <Clock className="w-4 h-4" />
+                <span>{currentTime.toLocaleString()}</span>
+              </div>
+              
+              <button
+                onClick={handleRefresh}
+                className={`p-2 rounded-lg bg-gray-800 hover:bg-gray-700 transition-colors ${
+                  refreshing ? 'animate-spin' : ''
+                }`}
+              >
+                <RefreshCw className="w-4 h-4" />
+              </button>
+              
+              <div className="relative">
+                <button className="p-2 rounded-lg bg-gray-800 hover:bg-gray-700 transition-colors relative">
+                  <Bell className="w-4 h-4" />
+                  {notifications.length > 0 && (
+                    <span className="absolute -top-1 -right-1 w-5 h-5 bg-red-500 rounded-full text-xs flex items-center justify-center">
+                      {notifications.length}
+                    </span>
+                  )}
                 </button>
-                <div id="entrenamiento-miercoles" class="day-content" style="display: none;">
-                    <div class="subsection">
-                        <h3>Detalles Miércoles: Recuperación Activa</h3>
-                        <p><strong>Objetivo:</strong> Facilitar la recuperación muscular y mantener un ligero gasto calórico sin generar fatiga adicional.</p>
-                        <p><strong>Actividades Sugeridas:</strong></p>
-                        <ul>
-                            <li>Caminata ligera a moderada: 30-45 minutos.</li>
-                            <li>Sesión de movilidad articular y estiramientos dinámicos: 15-20 minutos.</li>
-                            <li>Yoga suave o Pilates de baja intensidad.</li>
-                            <li>Opcional: Cardio muy suave en máquina (bicicleta, elíptica) a baja intensidad, 20-30 minutos, manteniendo la frecuencia cardíaca baja.</li>
-                        </ul>
-                        <p class="note">La clave es que estas actividades no deben sentirse como un entrenamiento, sino como una forma de ayudar al cuerpo a recuperarse para las sesiones más intensas.</p>
-                    </div>
-                </div>
+              </div>
             </div>
+          </div>
+        </div>
+      </header>
 
+      {/* Navigation Tabs */}
+      <nav className="bg-gray-800/50 backdrop-blur-sm border-b border-gray-700/50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex space-x-8">
+            {[
+              { id: 'overview', label: 'Overview', icon: Activity },
+              { id: 'threats', label: 'Threat Analysis', icon: AlertTriangle },
+              { id: 'monitoring', label: 'Real-time Monitoring', icon: Eye },
+              { id: 'incidents', label: 'Incident Response', icon: Zap }
+            ].map(({ id, label, icon: Icon }) => (
+              <button
+                key={id}
+                onClick={() => setActiveTab(id)}
+                className={`flex items-center px-3 py-4 text-sm font-medium transition-colors border-b-2 ${
+                  activeTab === id
+                    ? 'border-cyan-400 text-cyan-400'
+                    : 'border-transparent text-gray-400 hover:text-gray-300'
+                }`}
+              >
+                <Icon className="w-4 h-4 mr-2" />
+                {label}
+              </button>
+            ))}
+          </div>
+        </div>
+      </nav>
 
-            <div class="day-toggle">
-                <button class="day-button" data-target="entrenamiento-jueves">
-                    Jueves: Metabólico (Tren Superior) <span class="toggle-icon">+</span>
-                </button>
-                <div id="entrenamiento-jueves" class="day-content" style="display: none;">
-                    <div class="subsection">
-                        <h3>Detalles Entrenamiento Jueves: Metabólico (Tren Superior)</h3>
-                        <p><strong>Objetivo:</strong> Elevar gasto calórico, mejorar resistencia muscular, estimular hipertrofia con estrés metabólico.</p>
-                        <p><strong>Estructura:</strong> Superseries o circuitos. 4-6 ejercicios, 8-15 reps por serie, RPE 7-8. Descansos cortos ($30-60^{\prime\prime}$ entre ejercicios, o 1-2' al finalizar circuito).</p>
-                        <div class="exercise-details">
-                            <h4>Ejemplo de Rutina (Orientativo - Superseries A-B):</h4>
-                            <ul>
-                                <li><strong>Superserie 1 (3-4 rondas):</strong>
-                                    <ul>
-                                        <li>A1: Press inclinado con mancuernas - 10-12 reps</li>
-                                        <li>A2: Remo con mancuerna a una mano - 10-12 reps por brazo (descanso 60-90" tras A2)</li>
-                                    </ul>
-                                </li>
-                                <li><strong>Superserie 2 (3-4 rondas):</strong>
-                                    <ul>
-                                        <li>B1: Aperturas planas o peck deck - 12-15 reps</li>
-                                        <li>B2: Jalones al pecho o dominadas asistidas - 12-15 reps (descanso 60-90" tras B2)</li>
-                                    </ul>
-                                </li>
-                                 <li><strong>Circuito de Hombros/Brazos (2-3 rondas):</strong>
-                                    <ul>
-                                        <li>Elevaciones laterales - 15 reps</li>
-                                        <li>Press francés o extensiones de tríceps en polea - 12-15 reps</li>
-                                        <li>Curl de bíceps con barra Z o mancuernas - 12-15 reps (descanso 90-120" tras el circuito)</li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </div>
-                        <p><strong>Detalles:</strong> Mantener técnica con fatiga. Descansos cortos para inducir estrés metabólico y aumentar EPOC.</p>
-                    </div>
-                </div>
+      {/* Main Content */}
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        {/* Search and Filter Bar */}
+        <div className="mb-8 flex flex-col sm:flex-row gap-4 items-center justify-between">
+          <div className="flex items-center space-x-4 w-full sm:w-auto">
+            <div className="relative flex-1 sm:flex-initial">
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" />
+              <input
+                type="text"
+                placeholder="Search events, IPs, threats..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className="pl-10 pr-4 py-2 bg-gray-800/50 border border-gray-700/50 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:border-transparent w-full sm:w-64"
+              />
             </div>
+            <button
+              onClick={() => setFilterOpen(!filterOpen)}
+              className="px-4 py-2 bg-gray-800/50 border border-gray-700/50 rounded-lg hover:bg-gray-700/50 transition-colors flex items-center"
+            >
+              <Filter className="w-4 h-4 mr-2" />
+              Filter
+              {filterOpen ? <ChevronUp className="w-4 h-4 ml-2" /> : <ChevronDown className="w-4 h-4 ml-2" />}
+            </button>
+          </div>
+          
+          <select
+            value={selectedTimeRange}
+            onChange={(e) => setSelectedTimeRange(e.target.value)}
+            className="px-4 py-2 bg-gray-800/50 border border-gray-700/50 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-cyan-400"
+          >
+            <option value="1h">Last Hour</option>
+            <option value="24h">Last 24 Hours</option>
+            <option value="7d">Last 7 Days</option>
+            <option value="30d">Last 30 Days</option>
+          </select>
+        </div>
 
-            <div class="day-toggle">
-                <button class="day-button" data-target="entrenamiento-viernes">
-                    Viernes: Metabólico (Tren Inferior) <span class="toggle-icon">+</span>
-                </button>
-                <div id="entrenamiento-viernes" class="day-content" style="display: none;">
-                    <div class="subsection">
-                        <h3>Detalles Entrenamiento Viernes: Metabólico (Tren Inferior)</h3>
-                        <p><strong>Objetivo:</strong> Similar al jueves, enfocado en piernas. Quema extra de calorías y resistencia muscular.</p>
-                        <p><strong>Estructura:</strong> Superseries o circuitos, 10-15 reps, RPE 7-8.</p>
-                        <div class="exercise-details">
-                            <h4>Ejemplo de Circuito (3 rondas, descanso 2' entre rondas):</h4>
-                            <ol>
-                                <li>Zancadas con mancuernas - 12 reps por pierna</li>
-                                <li>Sentadilla goblet (mancuerna pecho) - 15 reps</li>
-                                <li>Hip thrust con barra o peso corporal - 15-20 reps</li>
-                                <li>Salto pliométrico en caja o sentadilla con salto - 10-12 reps explosivos</li>
-                            </ol>
-                            <h4>Superset Adicional (3 sets):</h4>
-                            <ul>
-                                <li>Curl femoral tumbado o sentado - 12-15 reps</li>
-                                <li>Elevación de gemelos de pie o sentado - 15-20 reps (descanso 60" entre supersets)</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        {/* Dashboard Statistics */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+          <StatCard
+            icon={Shield}
+            title="Total Events"
+            value={dashboardStats.totalEvents.toLocaleString()}
+            change={12}
+            color="cyan"
+          />
+          <StatCard
+            icon={AlertTriangle}
+            title="Active Threats"
+            value={dashboardStats.activeThreats}
+            change={-8}
+            color="red"
+          />
+          <StatCard
+            icon={Zap}
+            title="Critical Alerts"
+            value={dashboardStats.criticalAlerts}
+            change={5}
+            color="orange"
+          />
+          <StatCard
+            icon={Activity}
+            title="Events (24h)"
+            value={dashboardStats.eventsLast24h}
+            change={-15}
+            color="green"
+          />
+        </div>
 
-            <div class="day-toggle">
-                <button class="day-button" data-target="entrenamiento-sabado">
-                    Sábado: Exterior (HIIT/Full-Body) <span class="toggle-icon">+</span>
-                </button>
-                <div id="entrenamiento-sabado" class="day-content" style="display: none;">
-                    <div class="subsection">
-                        <h3>Detalles Entrenamiento Sábado: Exterior (HIIT/Full-Body)</h3>
-                        <p><strong>Objetivo:</strong> Cardio alta intensidad, resistencia, variedad mental. Acelera pérdida de grasa sin sacrificar músculo.</p>
-                        <p><strong>Formato:</strong> HIIT de carrera + circuito funcional (aprox. 45-60 minutos total).</p>
-                        <div class="exercise-details">
-                            <h4>Ejemplo de Estructura:</h4>
-                            <ul>
-                                <li><strong>Calentamiento:</strong> Trote suave 5-10' + movilidad dinámica.</li>
-                                <li><strong>Bloque 1 - Sprints en colina/plano:</strong> 8 series de $15^{\prime\prime}$ sprint (RPE 9-10) con 45-60" recuperación activa (caminata).
-                                    <br><em>Alternativas:</em> Cuestas en bicicleta, sprints en ergómetro de remo o bici estática ($20" ON / 40" OFF \times 8-10$ series).
-                                </li>
-                                <li><strong>Bloque 2 - Circuito funcional (3 rondas, descanso 2' entre rondas):</strong>
-                                    <ol>
-                                        <li>Burpees - 15-20 reps</li>
-                                        <li>Sentadillas con salto - 15 reps</li>
-                                        <li>Fondos de brazo (push-ups) - Max reps / hasta fallo técnico</li>
-                                        <li>Plancha abdominal - $30-45^{\prime\prime}$</li>
-                                    </ol>
-                                </li>
-                                <li><strong>Enfriamiento:</strong> Caminar 5' + estiramientos estáticos suaves.</li>
-                            </ul>
-                        </div>
-                        <p><strong>Comentarios:</strong> Separado de días pesados de piernas. Ajustar volumen según nivel. Puede aportar vitamina D si es soleado.</p>
-                    </div>
+        {/* Threat Level Indicator */}
+        <div className="mb-8">
+          <div className={`p-4 rounded-xl border ${
+            dashboardStats.threatLevel === 'High' ? 'bg-red-500/20 border-red-500/50' :
+            dashboardStats.threatLevel === 'Medium' ? 'bg-yellow-500/20 border-yellow-500/50' :
+            'bg-green-500/20 border-green-500/50'
+          }`}>
+            <div className="flex items-center justify-between">
+              <div className="flex items-center">
+                <Lock className="w-6 h-6 mr-3" />
+                <div>
+                  <h3 className="font-semibold">Current Threat Level</h3>
+                  <p className="text-sm opacity-80">System security status assessment</p>
                 </div>
+              </div>
+              <div className={`px-4 py-2 rounded-full font-bold text-lg ${
+                dashboardStats.threatLevel === 'High' ? 'text-red-400' :
+                dashboardStats.threatLevel === 'Medium' ? 'text-yellow-400' :
+                'text-green-400'
+              }`}>
+                {dashboardStats.threatLevel}
+              </div>
             </div>
+          </div>
+        </div>
+
+        {activeTab === 'overview' && (
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
+            <ThreatMap />
             
-            <div class="day-toggle">
-                <button class="day-button" data-target="entrenamiento-domingo">
-                    Domingo: Descanso Total <span class="toggle-icon">+</span>
-                </button>
-                <div id="entrenamiento-domingo" class="day-content" style="display: none;">
-                    <div class="subsection">
-                        <h3>Detalles Domingo: Descanso Total</h3>
-                        <p><strong>Objetivo:</strong> Permitir la recuperación completa del sistema nervioso central, muscular y hormonal.</p>
-                        <p><strong>Actividades Clave:</strong></p>
-                        <ul>
-                            <li>Sueño de calidad: Priorizar 7-9 horas de sueño reparador.</li>
-                            <li>Relajación: Actividades que reduzcan el estrés (meditación, lectura, pasar tiempo en la naturaleza, hobbies tranquilos).</li>
-                            <li>Hidratación y nutrición adecuadas según el plan de comidas de descanso.</li>
-                            <li>Evitar entrenamientos intensos o actividades físicas extenuantes.</li>
-                        </ul>
-                        <p class="note">El descanso es fundamental para controlar el cortisol, favorecer la pérdida de grasa, la reparación muscular y prevenir el sobreentrenamiento.</p>
+            {/* System Health */}
+            <div className="bg-gray-900/50 backdrop-blur-sm border border-gray-700/50 rounded-xl p-6">
+              <h3 className="text-xl font-bold text-white mb-4 flex items-center">
+                <Server className="w-5 h-5 mr-2 text-cyan-400" />
+                System Health
+              </h3>
+              <div className="space-y-4">
+                {[
+                  { name: 'CPU Usage', value: 45, color: 'bg-green-500' },
+                  { name: 'Memory Usage', value: 67, color: 'bg-yellow-500' },
+                  { name: 'Network I/O', value: 89, color: 'bg-red-500' },
+                  { name: 'Disk Usage', value: 34, color: 'bg-green-500' }
+                ].map((metric) => (
+                  <div key={metric.name}>
+                    <div className="flex justify-between text-sm mb-1">
+                      <span className="text-gray-300">{metric.name}</span>
+                      <span className="text-gray-300">{metric.value}%</span>
                     </div>
-                </div>
-            </div>
-
-
-            <div class="subsection" style="margin-top: 30px;"> <h3>Fundamento Científico del Entrenamiento</h3>
-                <p>Este protocolo combina entrenamiento de fuerza pesado y cardio/HIIT estratégico. La carga mecánica pesada mantiene la síntesis muscular y fuerza, mientras que el cardio intenso incrementa el gasto calórico y mejora la capacidad metabólica. La clave es manejar la "interferencia" separando en días distintos o haciendo cardio después de la fuerza. Estudios sugieren que usar HIIT de carrera en un plan concurrente reduce la interferencia comparado con cardio continuo.</p>
-            </div>
-
-        </section>
-
-        <section id="plan-comidas-section" class="main-section">
-            <h2>Plan de Comidas Semanal</h2>
-            <div class="subsection"> <h3>Lineamientos Generales de la Dieta (~2525 kcal/día)</h3>
-                <p>Dieta hipocalórica moderada (~15% por debajo del TDEE) para pérdida de grasa sostenible sin sacrificar músculo. Se espera perder ~0.5-1% de peso corporal por semana.</p>
-                <ul>
-                    <li><strong>Proteína:</strong> $\ge2.2 \text{ g/kg}$ de peso (~180 g diarios). Repartir en 4-5 comidas.</li>
-                    <li><strong>Carbohidratos:</strong> ~40-45% de las calorías. Días de entreno intenso: ~270-300 g. Días de descanso: ~230-250 g. Priorizar complejos y con fibra.</li>
-                    <li><strong>Grasas:</strong> ~25-30% de calorías (~65-80 g diarios). Fuentes saludables. No bajar de ~0.8 g/kg.</li>
-                    <li><strong>"Toques" veganos:</strong> 1-2 comidas vegetales al día.</li>
-                    <li><strong>Facilidad y preparación:</strong> Recetas $\le40$ minutos. Cocinar en lote.</li>
-                    <li><strong>Ingestas:</strong> 5 diarias. En días sin entreno, pre y post como snacks.</li>
-                </ul>
-            </div>
-
-            <div class="day-toggle">
-                <button class="day-button" data-target="comidas-lunes">
-                    Lunes: ~2600 kcal (Entreno Fuerza Superior) <span class="toggle-icon">+</span>
-                </button>
-                <div id="comidas-lunes" class="day-content" style="display: none;">
-                    <div class="meal-day-card"> <h4>Plan de Comidas Lunes</h4>
-                        <table>
-                            <thead><tr><th>Comida</th><th>Menú (ejemplo)</th><th>Calorías</th><th>Proteína (g)</th><th>Carbs (g)</th><th>Grasas (g)</th></tr></thead>
-                            <tbody>
-                                <tr><td>Desayuno</td><td>Overnight oats: avena (60g), leche almendra, proteína vegana (30g), arándanos (50g), nueces (15g).</td><td>600</td><td>40</td><td>68</td><td>18</td></tr>
-                                <tr><td>Comida</td><td>Ensalada quinoa (120g cocida), pollo plancha (150g), garbanzos (50g), espinacas, tomate, aliño oliva.</td><td>680</td><td>55</td><td>65</td><td>20</td></tr>
-                                <tr><td>Pre-entreno</td><td>Manzana mediana + 2 cdas mantequilla cacahuete.</td><td>300</td><td>8</td><td>32</td><td>16</td></tr>
-                                <tr><td>Post-entreno</td><td>Batido Whey (30g) + plátano. (Alt: proteína vegana).</td><td>280</td><td>25</td><td>34</td><td>3</td></tr>
-                                <tr><td>Cena</td><td>Salmón horno (180g), espárragos, patata asada (200g), ensalada.</td><td>740</td><td>45</td><td>60</td><td>30</td></tr>
-                                <tr><td><strong>Total día</strong></td><td></td><td><strong>2600</strong></td><td><strong>180</strong></td><td><strong>259</strong></td><td><strong>87</strong></td></tr>
-                            </tbody>
-                        </table>
+                    <div className="w-full bg-gray-700 rounded-full h-2">
+                      <div
+                        className={`h-2 rounded-full ${metric.color} transition-all duration-300`}
+                        style={{ width: `${metric.value}%` }}
+                      ></div>
                     </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Events Table */}
+        <EventsTable />
+
+        {/* Notifications Panel */}
+        {notifications.length > 0 && (
+          <div className="fixed bottom-4 right-4 w-80 max-h-96 overflow-y-auto space-y-2 z-50">
+            {notifications.map((notification) => (
+              <div
+                key={notification.id}
+                className={`p-4 rounded-lg border backdrop-blur-sm animate-slide-in-right ${
+                  notification.severity === 'Critical' ? 'bg-red-900/80 border-red-500/50' :
+                  notification.severity === 'High' ? 'bg-orange-900/80 border-orange-500/50' :
+                  'bg-yellow-900/80 border-yellow-500/50'
+                }`}
+              >
+                <div className="flex items-start justify-between">
+                  <div className="flex-1">
+                    <p className="text-sm font-medium text-white">{notification.message}</p>
+                    <p className="text-xs text-gray-300 mt-1">
+                      {notification.timestamp.toLocaleTimeString()}
+                    </p>
+                  </div>
+                  <button
+                    onClick={() => setNotifications(prev => prev.filter(n => n.id !== notification.id))}
+                    className="ml-2 text-gray-400 hover:text-white"
+                  >
+                    <X className="w-4 h-4" />
+                  </button>
                 </div>
-            </div>
+              </div>
+            ))}
+          </div>
+        )}
+      </main>
+    </div>
+  );
+};
 
-            <div class="day-toggle">
-                <button class="day-button" data-target="comidas-martes">
-                    Martes: ~2400-2600 kcal (Entreno Fuerza Inferior) <span class="toggle-icon">+</span>
-                </button>
-                <div id="comidas-martes" class="day-content" style="display: none;">
-                     <div class="meal-day-card">
-                        <h4>Plan de Comidas Martes</h4>
-                        <table>
-                            <thead><tr><th>Comida</th><th>Menú (ejemplo)</th><th>Calorías</th><th>Proteína (g)</th><th>Carbs (g)</th><th>Grasas (g)</th></tr></thead>
-                            <tbody>
-                                <tr><td>Desayuno</td><td>Tortilla: 3 huevos (1 yema, 3 claras), espinacas, champiñones; 2 pan integral tostado, aguacate (50g).</td><td>550</td><td>35</td><td>40</td><td>25</td></tr>
-                                <tr><td>Comida</td><td>Tacos lechuga: ternera magra (150g), frijoles negros (100g), maíz, tex-mex; guacamole ligero.</td><td>700</td><td>50</td><td>50</td><td>35</td></tr>
-                                <tr><td>Pre-entreno</td><td>Yogur griego 0% (150g), miel (10g), fresas (100g).</td><td>180</td><td>15</td><td>20</td><td>2</td></tr>
-                                <tr><td>Post-entreno</td><td>Batido: 250ml leche desnatada, 1 scoop whey (30g), cacao puro, hielo.</td><td>300</td><td>32</td><td>25</td><td>7</td></tr>
-                                <tr><td>Cena</td><td>Salteado vegano: tofu (150g) marinado, brócoli, pimiento, zanahoria; arroz integral (120g cocido).</td><td>670</td><td>38</td><td>70</td><td>22</td></tr>
-                                <tr><td><strong>Total día</strong></td><td>(Aprox. 2400 kcal si entreno temprano)</td><td><strong>2400</strong></td><td><strong>170</strong></td><td><strong>205</strong></td><td><strong>91</strong></td></tr>
-                            </tbody>
-                        </table>
-                        <p class="note">La cena es vegana.</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="day-toggle">
-                <button class="day-button" data-target="comidas-miercoles">
-                    Miércoles: ~2400 kcal (Descanso / Cardio Suave) <span class="toggle-icon">+</span>
-                </button>
-                <div id="comidas-miercoles" class="day-content" style="display: none;">
-                    <div class="meal-day-card">
-                        <h4>Plan de Comidas Miércoles</h4>
-                        <table>
-                            <thead><tr><th>Comida</th><th>Menú (ejemplo)</th><th>Calorías</th><th>Proteína (g)</th><th>Carbs (g)</th><th>Grasas (g)</th></tr></thead>
-                            <tbody>
-                                <tr><td>Desayuno</td><td>Smoothie verde: proteína vegana (30g), espinaca, plátano, crema cacahuete, leche avena (200ml).</td><td>450</td><td>32</td><td>45</td><td>15</td></tr>
-                                <tr><td>Comida</td><td>Lentejas guisadas (200g cocidas), verduras, tofu desmigado (100g); arroz integral (100g cocido).</td><td>700</td><td>35</td><td>90</td><td>15</td></tr>
-                                <tr><td>Snack 1</td><td>Puñado nueces mixtas (30g) + 1 mandarina.</td><td>200</td><td>5</td><td>15</td><td>14</td></tr>
-                                <tr><td>Snack 2</td><td>Batido caseína (25g), cacao, hielo.</td><td>160</td><td>20</td><td>8</td><td>3</td></tr>
-                                <tr><td>Cena</td><td>Poke bowl: arroz blanco (150g), atún plancha (160g), edamame (100g), aguacate (70g), pepino, nori.</td><td>800</td><td>55</td><td>80</td><td>28</td></tr>
-                                <tr><td><strong>Total día</strong></td><td></td><td><strong>2360</strong></td><td><strong>147</strong></td><td><strong>238</strong></td><td><strong>75</strong></td></tr>
-                            </tbody>
-                        </table>
-                        <p class="note">Énfasis en vegetales (~2 comidas veganas). Cena con pescado magro.</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="day-toggle">
-                <button class="day-button" data-target="comidas-jueves">
-                    Jueves: ~2550 kcal (Entreno Metabólico Superior) <span class="toggle-icon">+</span>
-                </button>
-                <div id="comidas-jueves" class="day-content" style="display: none;">
-                    <div class="meal-day-card">
-                        <h4>Plan de Comidas Jueves</h4>
-                        <table>
-                            <thead><tr><th>Comida</th><th>Menú (ejemplo)</th><th>Calorías</th><th>Proteína (g)</th><th>Carbs (g)</th><th>Grasas (g)</th></tr></thead>
-                            <tbody>
-                                <tr><td>Desayuno</td><td>Gachas avena (50g), leche desnatada (250ml), whey (30g), canela, arándanos (40g), almendras (10g).</td><td>520</td><td>35</td><td>60</td><td>15</td></tr>
-                                <tr><td>Comida</td><td>Pasta integral (80g seca), salsa tomate, soja texturizada (80g), verduras. Levadura nutricional.</td><td>690</td><td>38</td><td>90</td><td>15</td></tr>
-                                <tr><td>Pre-entreno</td><td>Dátiles (3 uds) rellenos crema almendra + espresso.</td><td>200</td><td>3</td><td>36</td><td>6</td></tr>
-                                <tr><td>Post-entreno</td><td>Leche chocolateada baja grasa (250ml) + proteína polvo (20g).</td><td>300</td><td>22</td><td>40</td><td>6</td></tr>
-                                <tr><td>Cena</td><td>Pollo salteado asiático: pollo (140g), brócoli, pimiento, anacardos (15g), salsa soja. Fideos arroz (60g).</td><td>840</td><td>55</td><td>85</td><td>25</td></tr>
-                                <tr><td><strong>Total día</strong></td><td></td><td><strong>2550</strong></td><td><strong>153</strong></td><td><strong>311</strong></td><td><strong>67</strong></td></tr>
-                            </tbody>
-                        </table>
-                        <p class="note">Almuerzo 100% vegetal. Pre-entreno con azúcares rápidos.</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="day-toggle">
-                <button class="day-button" data-target="comidas-viernes">
-                    Viernes: ~2550 kcal (Entreno Metabólico Inferior) <span class="toggle-icon">+</span>
-                </button>
-                <div id="comidas-viernes" class="day-content" style="display: none;">
-                    <div class="meal-day-card">
-                        <h4>Plan de Comidas Viernes</h4>
-                        <table>
-                            <thead><tr><th>Comida</th><th>Menú (ejemplo)</th><th>Calorías</th><th>Proteína (g)</th><th>Carbs (g)</th><th>Grasas (g)</th></tr></thead>
-                            <tbody>
-                                <tr><td>Desayuno</td><td>Panqueques proteína: avena (40g), 2 claras+1 huevo, proteína (20g). Topping: yogur griego, frutos rojos.</td><td>550</td><td>40</td><td>50</td><td>18</td></tr>
-                                <tr><td>Comida</td><td>Buddha bowl vegano: arroz integral (100g), espinacas; garbanzos asados (120g); calabaza; brócoli; aderezo tahini.</td><td>640</td><td>22</td><td>85</td><td>20</td></tr>
-                                <tr><td>Pre-entreno</td><td>Barrita proteica casera/comercial (~200 kcal).</td><td>220</td><td>15</td><td>20</td><td>8</td></tr>
-                                <tr><td>Post-entreno</td><td>Batido: leche desnatada (200ml), whey (20g), mango, espinacas, chía.</td><td>300</td><td>20</td><td>35</td><td>6</td></tr>
-                                <tr><td>Cena</td><td>Hamburguesa "fit": carne magra (150g) pan integral. Guarnición: patata horno (150g), zanahoria.</td><td>840</td><td>50</td><td>80</td><td>30</td></tr>
-                                <tr><td><strong>Total día</strong></td><td></td><td><strong>2550</strong></td><td><strong>147</strong></td><td><strong>270</strong></td><td><strong>82</strong></td></tr>
-                            </tbody>
-                        </table>
-                        <p class="note">Almuerzo vegano. Cena con carne roja magra.</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="day-toggle">
-                <button class="day-button" data-target="comidas-sabado">
-                    Sábado: ~2600 kcal (Entreno HIIT Exterior) <span class="toggle-icon">+</span>
-                </button>
-                <div id="comidas-sabado" class="day-content" style="display: none;">
-                    <div class="meal-day-card">
-                        <h4>Plan de Comidas Sábado</h4>
-                        <table>
-                            <thead><tr><th>Comida</th><th>Menú (ejemplo)</th><th>Calorías</th><th>Proteína (g)</th><th>Carbs (g)</th><th>Grasas (g)</th></tr></thead>
-                            <tbody>
-                                <tr><td>Desayuno (pre-HIIT)</td><td>Porridge: avena instant (40g), plátano, miel, canela. Café/té.</td><td>360</td><td>8</td><td>75</td><td>4</td></tr>
-                                <tr><td>Post-HIIT (brunch)</td><td>Omelette: 2 huevos+2 claras, espinacas, pavo (50g); tostada integral; naranja.</td><td>600</td><td>35</td><td>50</td><td>25</td></tr>
-                                <tr><td>Comida</td><td>Wok: camarones (150g), tofu (100g), fideos arroz (70g), verduras, salsa soja.</td><td>720</td><td>45</td><td>90</td><td>15</td></tr>
-                                <tr><td>Merienda</td><td>Smoothie: leche semidesnatada (200ml), fresas, plátano, avena (20g), proteína (20g opc).</td><td>300</td><td>18</td><td>40</td><td>6</td></tr>
-                                <tr><td>Cena</td><td>Pizza saludable casera: base integral; pollo (120g), mozzarella light (50g), verduras. Ensalada.</td><td>620</td><td>45</td><td>60</td><td>20</td></tr>
-                                <tr><td><strong>Total día</strong></td><td></td><td><strong>2600</strong></td><td><strong>151</strong></td><td><strong>315</strong></td><td><strong>70</strong></td></tr>
-                            </tbody>
-                        </table>
-                        <p class="note">Desayuno ligero pre-HIIT. Brunch post-HIIT. Cena "libre" adaptada.</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="day-toggle">
-                <button class="day-button" data-target="comidas-domingo">
-                    Domingo: ~2100-2400 kcal (Descanso) <span class="toggle-icon">+</span>
-                </button>
-                <div id="comidas-domingo" class="day-content" style="display: none;">
-                    <div class="meal-day-card">
-                        <h4>Plan de Comidas Domingo</h4>
-                        <table>
-                            <thead><tr><th>Comida</th><th>Menú (ejemplo)</th><th>Calorías</th><th>Proteína (g)</th><th>Carbs (g)</th><th>Grasas (g)</th></tr></thead>
-                            <tbody>
-                                <tr><td>Desayuno</td><td>Pudding chía: chía (30g), bebida almendras (200ml), proteína vegana (20g); frutos bosque.</td><td>420</td><td>22</td><td>30</td><td>20</td></tr>
-                                <tr><td>Comida</td><td>Paella integral: pollo (150g), arroz integral (60g crudo), verduras. Ensalada.</td><td>650</td><td>45</td><td>70</td><td>18</td></tr>
-                                <tr><td>Snack tarde</td><td>Queso quark 0% (200g), arándanos, miel.</td><td>180</td><td>22</td><td>15</td><td>0</td></tr>
-                                <tr><td>Cena</td><td>Crema verduras; Merluza plancha (180g); boniato asado (150g).</td><td>750</td><td>50</td><td>60</td><td>20</td></tr>
-                                <tr><td>Refrigerio nocturno</td><td>Chocolate negro 85% (20g).</td><td>120</td><td>2</td><td>5</td><td>10</td></tr>
-                                <tr><td><strong>Total día</strong></td><td>(Aprox. 2120 kcal)</td><td><strong>2120</strong></td><td><strong>141</strong></td><td><strong>180</strong></td><td><strong>68</strong></td></tr>
-                            </tbody>
-                        </table>
-                        <p class="note">Día bajo en carbohidratos. Proteínas altas. Cena ligera.</p>
-                    </div>
-                </div>
-            </div>
-            <p class="note" style="margin-top:30px;"><strong>Nota final sobre la dieta:</strong> Abundantes micronutrientes y fibra (~30-40 g/día). Hidratarse bien y limitar alcohol.</p>
-        </section>
-
-        <section id="recomendaciones-section" class="main-section">
-            <h2>Recomendaciones y Tips Adicionales</h2>
-            
-            <div class="subsection">
-                <h3>Suplementos Recomendados (Disponibles en Alemania)</h3>
-                <ul>
-                    <li><strong>Creatina monohidratada:</strong> 5 g diarios. Ayuda a mantener rendimiento y masa muscular en déficit. Fase de carga opcional.</li>
-                    <li><strong>Proteína en polvo (Whey o vegana):</strong> Para alcanzar cuota proteica. Whey post-entreno (rápida absorción). Vegana (mezcla guisante+arroz) en otros momentos.</li>
-                    <li><strong>Cafeína:</strong> $3-6 \text{ mg/kg}$ antes del entreno (30-45 min pre-ejercicio). Mejora rendimiento y oxidación de grasas. Evitar tarde.</li>
-                    <li><strong>Omega-3 (EPA+DHA):</strong> ~2000 mg diarios de EPA+DHA combinados. Beneficios antiinflamatorios y preservación muscular.</li>
-                    <li><strong>Vitamina D3:</strong> 1500-2000 UI/día con comida con grasa, especialmente en meses de poco sol. Analítica para ajustar dosis.</li>
-                </ul>
-                <h4>Opcionales:</h4>
-                <ul>
-                    <li><strong>Beta-Alanina:</strong> ~4-6 g/día divididos. Puede ayudar en entrenos HIIT/metabólicos.</li>
-                    <li><strong>Multivitamínico:</strong> Como "red de seguridad" en déficit calórico.</li>
-                    <li><strong>Protector articular:</strong> Colágeno hidrolizado o glucosamina/condroitina si hay molestias.</li>
-                    <li><strong>Té verde / EGCG:</strong> Podría aumentar ligeramente gasto calórico y oxidación de grasas.</li>
-                </ul>
-                <p class="note"><strong>Resumen suplementos:</strong> Obligatorios: Proteína, Creatina, Omega-3, Vitamina D. Ergogénico clave: Cafeína.</p>
-            </div>
-
-            <div class="subsection">
-                <h3>Tips Generales de Entrenamiento</h3>
-                <ul>
-                    <li>Realizar el cardio después de las pesas o en días separados para minimizar interferencias.</li>
-                    <li>No subestimar la importancia de 1-2 días de descanso completos a la semana.</li>
-                    <li>Priorizar la técnica correcta en todos los ejercicios y buscar la sobrecarga progresiva.</li>
-                    <li>En los circuitos metabólicos, mantener una buena técnica incluso cuando aparezca la fatiga.</li>
-                    <li>Ajustar el volumen del entrenamiento HIIT (número de sprints o rondas) según el nivel de condición física.</li>
-                </ul>
-            </div>
-
-            <div class="subsection">
-                <h3>Tips Generales de Dieta</h3>
-                <ul>
-                    <li>El objetivo es una pérdida de peso de ~0.5-1% del peso corporal por semana.</li>
-                    <li>Distribuir la ingesta de proteínas en 4-5 comidas a lo largo del día para maximizar la síntesis proteica.</li>
-                    <li>Priorizar carbohidratos complejos y ricos en fibra para mayor saciedad y energía sostenida.</li>
-                    <li>Cocinar en lote algunas preparaciones (pollo, quinoa, arroz) puede ahorrar tiempo durante la semana.</li>
-                    <li>Mantener una buena hidratación (agua, infusiones) y limitar el consumo de alcohol.</li>
-                </ul>
-            </div>
-            
-            <div class="subsection">
-                <h3>Conclusión y Expectativas</h3>
-                <p>Siguiendo este protocolo, se crea un entorno para la pérdida de grasa acelerada manteniendo masa muscular. Es posible perder ~0.5-0.7 kg de grasa por semana. En 12 semanas, se podría pasar del 21% al 15% de grasa corporal. El peso objetivo de 78-80 kg es realista, compensando pérdida de grasa con posible ganancia de masa magra.</p>
-                <h4>¿Por qué funciona?</h4>
-                <ul>
-                    <li>Fuerza pesada: preserva masa magra.</li>
-                    <li>Cardio HIIT y metabólico: maximizan quema de calorías y previenen pérdida muscular.</li>
-                    <li>Proteína elevada: minimiza catabolismo y mejora saciedad.</li>
-                    <li>Tasa de pérdida moderada: evita hambre extrema y bajadas de rendimiento.</li>
-                    <li>Suplementos: cubren brechas y dan plus de rendimiento/recuperación.</li>
-                </ul>
-                <p class="note">El plan es realista y sostenible, permitiendo flexibilidad. Con consistencia, el objetivo de 14-15% de grasa corporal manteniendo ~80 kg de masa muscular es alcanzable.</p>
-            </div>
-        </section>
-    </main>
-
-    <footer>
-        <p>&copy; 2024 Protocolo Integral. Contenido adaptado del PDF proporcionado.</p>
-        <p>Recuerda consultar con un profesional de la salud o entrenador personal antes de iniciar cualquier nuevo plan de entrenamiento o dieta.</p>
-    </footer>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const dayButtons = document.querySelectorAll('.day-button');
-            dayButtons.forEach(button => {
-                button.addEventListener('click', () => {
-                    const targetId = button.getAttribute('data-target');
-                    const targetContent = document.getElementById(targetId);
-                    const icon = button.querySelector('.toggle-icon');
-
-                    if (targetContent) {
-                        // Cierra todos los demás contenidos abiertos en la misma sección principal
-                        const parentSection = button.closest('.main-section');
-                        if (parentSection) {
-                            const allButtonsInParent = parentSection.querySelectorAll('.day-button');
-                            allButtonsInParent.forEach(otherButton => {
-                                if (otherButton !== button) {
-                                    const otherTargetId = otherButton.getAttribute('data-target');
-                                    const otherTargetContent = document.getElementById(otherTargetId);
-                                    const otherIcon = otherButton.querySelector('.toggle-icon');
-                                    if (otherTargetContent && otherTargetContent.style.display === 'block') {
-                                        otherTargetContent.style.display = 'none';
-                                        otherButton.classList.remove('active');
-                                        if (otherIcon) otherIcon.textContent = '+';
-                                    }
-                                }
-                            });
-                        }
-                        
-                        // Abre o cierra el contenido actual
-                        if (targetContent.style.display === 'none' || targetContent.style.display === '') {
-                            targetContent.style.display = 'block';
-                            button.classList.add('active');
-                            if (icon) icon.textContent = '−'; // Signo menos para abierto
-                        } else {
-                            targetContent.style.display = 'none';
-                            button.classList.remove('active');
-                            if (icon) icon.textContent = '+'; // Signo más para cerrado
-                        }
-                    }
-                });
-            });
-        });
-    </script>
-
-</body>
-</html>
+export default CybersecuritySIEM;
